@@ -1,21 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace FunctionsMenu
 {
     internal class Program
     {
         static void Main(string[] args)
-        {            
+        {
             int opcionNumeral;
 
             do
             {
-                            Console.WriteLine(@"MENU DE ACCIONES
+                Console.WriteLine(@"MENU DE ACCIONES
             [1] - Comprobar si la palabra es capicua
             [2] - Comprobar si la fecha es la misma o no
             [3] - Convertir frase en camelCase
@@ -24,30 +20,30 @@ namespace FunctionsMenu
             [6] - Realizar una potencia
             [7] - Comparar 2 strings alfabeticamente
             [0] - EXIT");
-            bool isValidNum;
-            do
-            {
-                string opcion = Console.ReadLine();
-                isValidNum = int.TryParse(opcion, out opcionNumeral);
-                if (!isValidNum)
+                bool isValidNum;
+                do
                 {
-                    Console.WriteLine("Valor invalido, introducelo de nuevo:");
+                    string opcion = Console.ReadLine();
+                    isValidNum = int.TryParse(opcion, out opcionNumeral);
+                    if (!isValidNum)
+                    {
+                        Console.WriteLine("Valor invalido, introducelo de nuevo:");
+                    }
                 }
-            }
-            while (!isValidNum);
-            switch(opcionNumeral)
-            {
-                case 0: 
-                    Console.WriteLine("Saliendo de el programa");
-                    break;
-                case 1:
-                    Console.WriteLine("Que palabra quieres comprobar? :");
-                    string palabra = Console.ReadLine();
-                    Console.WriteLine(IsReverse(palabra));
-                    break;
-                case 2:
-                    Console.WriteLine("Que dos dias quieres comprobar?");
-                    bool resultFunction;
+                while (!isValidNum);
+                switch (opcionNumeral)
+                {
+                    case 0:
+                        Console.WriteLine("Saliendo de el programa");
+                        break;
+                    case 1:
+                        Console.WriteLine("Que palabra quieres comprobar? :");
+                        string palabra = Console.ReadLine();
+                        Console.WriteLine(IsReverse(palabra));
+                        break;
+                    case 2:
+                        Console.WriteLine("Que dos dias quieres comprobar?");
+                        bool resultFunction;
                         do
                         {
                             string string1 = Console.ReadLine();
@@ -55,38 +51,38 @@ namespace FunctionsMenu
                             resultFunction = IsSameDate(string1, string2);
                         } while (!resultFunction);
 
-                    break;
-                case 3:
-                    Console.WriteLine("Introduce la frase a convertir: ");
-                    string frase = Console.ReadLine();
-                    Console.WriteLine(ToCamelCase(frase));
-                    break;
-                case 4:
-                    Console.WriteLine("Introduce el nominador: ");
-                    int num = int.Parse(Console.ReadLine());
-                    Console.WriteLine("Introduce el denominador: ");
-                    int denominador = int.Parse(Console.ReadLine());
-                    Console.WriteLine(Division(num, denominador));
-                    break;
-                case 5:
-                    Console.WriteLine("Introduce los numeros que quieres hacer la media 1 a 1, usando el intro");
-                    
-                    Console.WriteLine(Media());
-                    break;
-                case 6:
-                    Console.WriteLine("Introduce 1r el numero indice");
-                    int indice = int.Parse(Console.ReadLine());
-                    Console.WriteLine("Introduce la potencia");
-                    int potencia = int.Parse(Console.ReadLine());
-                    Console.WriteLine(Potencia(indice, potencia));
-                    break;
-                case 7:
+                        break;
+                    case 3:
+                        Console.WriteLine("Introduce la frase a convertir: ");
+                        string frase = Console.ReadLine();
+                        Console.WriteLine(ToCamelCase(frase));
+                        break;
+                    case 4:
+                        Console.WriteLine("Introduce el nominador: ");
+                        int num = int.Parse(Console.ReadLine());
+                        Console.WriteLine("Introduce el denominador: ");
+                        int denominador = int.Parse(Console.ReadLine());
+                        Console.WriteLine(Division(num, denominador));
+                        break;
+                    case 5:
+                        Console.WriteLine("Introduce los numeros que quieres hacer la media 1 a 1, usando el intro");
+
+                        Console.WriteLine(Media());
+                        break;
+                    case 6:
+                        Console.WriteLine("Introduce 1r el numero indice");
+                        int indice = int.Parse(Console.ReadLine());
+                        Console.WriteLine("Introduce la potencia");
+                        int potencia = int.Parse(Console.ReadLine());
+                        Console.WriteLine(Potencia(indice, potencia));
+                        break;
+                    case 7:
                         Console.WriteLine("Introduce los dos strings a comparar");
                         string frase1 = Console.ReadLine();
                         string frase2 = Console.ReadLine();
-                        Console.WriteLine(isEqual(frase1,frase2));
+                        Console.WriteLine(IsEqual(frase1, frase2));
                         break;
-            }
+                }
             }
             while (opcionNumeral != 0);
 
@@ -166,10 +162,10 @@ namespace FunctionsMenu
         public static string ToCamelCase(string input)
         {
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i< input.Length; i++)
+            for (int i = 0; i < input.Length; i++)
             {
-                if (i == 0 &&  Char.IsUpper(input[i]))
-                {   
+                if (i == 0 && Char.IsUpper(input[i]))
+                {
                     sb.Append(Char.ToLower(input[0]));
                 }
                 else if (Char.IsWhiteSpace(input[i]))
@@ -198,7 +194,8 @@ namespace FunctionsMenu
         {
             int suma = 0;
             int contador = 0;
-            while (true) {
+            while (true)
+            {
 
                 bool isSucces = int.TryParse(Console.ReadLine(), out int res);
                 if (isSucces)
@@ -207,7 +204,7 @@ namespace FunctionsMenu
                     {
                         break;
                     }
-                    suma+= res;
+                    suma += res;
                     contador++;
 
                 }
@@ -218,36 +215,58 @@ namespace FunctionsMenu
 
             }
 
-            return suma/contador;
+            return suma / contador;
         }
-    //Ejercicios M1.3
+        //Ejercicios M1.3
         public static int Potencia(int num, int potencia)
         {
             int total = 1;
-            for (int i = 0; i < potencia; i++) 
+            for (int i = 0; i < potencia; i++)
             {
                 total *= num;
             }
 
             return total;
-        }        
-        public static string isEqual(string frase1, string frase2)
+        }
+        public static string IsEqual(string frase1, string frase2)
         {
             for (int i = 0; true; i++)
             {
-                if(frase1[i] != frase2[i])
+                if (frase1[i] != frase2[i])
                 {
                     if (frase1[i] < frase2[i])
                     {
                         return "El que va alfabeticamente antes es :" + frase1;
-                    }else if (frase1[i] > frase2[i])
+                    }
+                    else if (frase1[i] > frase2[i])
                     {
                         return "El que va alfabeticamente antes es :" + frase2;
                     }
-                    
+
                 }
             }
         }
+        public static int ReverseNumber(int number)
+        {
+            int check = number;
+            int intBuilder = 0;
+            int contador = 0;
+            for (; check >0; contador++)
+            {
+                check /= 10;
+                
+            }
+            for (; contador >= 0; contador --)
+            {
+                if (contador == 0)
+                {
+                    intBuilder = number / 10 * contador;
+                }
+                else
+                    intBuilder = number / 10 * contador - number / 10 * contador - 1;
 
+            }
+            return intBuilder;
+        }
     }
 }
