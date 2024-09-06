@@ -10,7 +10,7 @@ namespace tresEnRayaMultidimensional
     internal class Program
     {
         static char?[,] arrayFichas;
-
+        static int dimensionX = 0, dimensionY = 0;
         static void Main(string[] args)
         {
             Jugar();
@@ -21,13 +21,12 @@ namespace tresEnRayaMultidimensional
             
             int contador = 0;
             char simboloJugador = 'o';
-            int dimensionX = 3, dimensionY = 3;
-            arrayFichas = new char?[3, 3];
             bool isWin = false;
 
-            //(dimensionX, dimensionY) = GetDimensiones();
+            (dimensionX, dimensionY) = GetDimensiones();
+            arrayFichas = new char?[dimensionX, dimensionY];
 
-            while (contador < 9)
+            while (contador < arrayFichas.Length)
             {
 
                 Jugada(simboloJugador);
@@ -36,6 +35,9 @@ namespace tresEnRayaMultidimensional
                 if (isWin)
                     break;
                 contador++;
+                if (contador == 9)
+                    Console.WriteLine("Tablas!");
+                
                 simboloJugador = simboloJugador == 'o' ? 'x' : 'o'; //Hacemos un toggle de el jugador para que intercambie
             }
 
@@ -74,28 +76,43 @@ namespace tresEnRayaMultidimensional
                         tablero += arrayFichas[i, j] + " | ";
 
                 }
+                //Insertar las barras horitzaontales
+                    tablero += "\n";
+                for (int i = 0; i < arrayFichas.GetLength(0); i++)
+                    tablero = tablero.Insert(tablero.Length, "----");
+                
                 tablero += "\n";
+
             }
             Console.WriteLine(tablero);
         }        
         private static void Jugada(char simboloJugador)
         {
-            bool isCorrectX = false, isCorrectY = false;
+            bool isCorrectX = false, isCorrectY = false, isUsed = false;
             int x=0, y=0;
 
             Console.WriteLine("En que posición quieres colocar "+simboloJugador+"?");
-            while (!isCorrectX && !isCorrectY)
+            while (!isCorrectX || !isCorrectY || isUsed || x >= dimensionX || y >= dimensionY)
             {
                 Console.WriteLine("Coloca la posición X:");
                 isCorrectX = int.TryParse(Console.ReadLine(), out x);
                 Console.WriteLine("Coloca la posición Y");
                 isCorrectY = int.TryParse(Console.ReadLine(), out y);
-                if (!isCorrectX && !isCorrectY)
-                    Console.WriteLine("Valor incorrecto");
+
+                isUsed = EstaUsadaLaCasilla(x, y);
+                if (!isCorrectX || !isCorrectY || isUsed || x >= dimensionX || y >= dimensionY)
+                    Console.WriteLine("Valor incorrecto, Introducelos de nuevo");
             }
             arrayFichas[x,y] = simboloJugador;
 
         }        
+        private static bool EstaUsadaLaCasilla(int x, int y)
+        {
+            if ((x < dimensionX && y < dimensionY) && (arrayFichas[x, y] == 'o' || arrayFichas[x, y] == 'x'))
+                return true;
+            else
+                return false;
+        }
         private static bool ComprobarTresEnRaya(char simb)
         {
             //Comprobacion horitzontal
