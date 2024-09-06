@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tresEnRaya", "tresEnRaya\tr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tresEnRayaMultidimensional", "tresEnRayaMultidimensional\tresEnRayaMultidimensional.csproj", "{27B69FF1-8D49-437B-BB20-CFAE24FDFE9A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tresEnRallaMulti3D", "tresEnRallaMulti3D\tresEnRallaMulti3D.csproj", "{9CCF1040-A822-4474-8D3A-93CC93F42964}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{27B69FF1-8D49-437B-BB20-CFAE24FDFE9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27B69FF1-8D49-437B-BB20-CFAE24FDFE9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27B69FF1-8D49-437B-BB20-CFAE24FDFE9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CCF1040-A822-4474-8D3A-93CC93F42964}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CCF1040-A822-4474-8D3A-93CC93F42964}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CCF1040-A822-4474-8D3A-93CC93F42964}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CCF1040-A822-4474-8D3A-93CC93F42964}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
