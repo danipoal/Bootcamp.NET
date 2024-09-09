@@ -42,7 +42,6 @@ namespace tresEnRallaMulti3D
             }
 
         }
-
         private static (int, int, int) GetDimensiones()
         {
             bool isCorrectX = false, isCorrectY = false, isCorrectZ= false;
@@ -107,7 +106,7 @@ namespace tresEnRallaMulti3D
                 Console.WriteLine("Coloca la posición Z");
                 isCorrectZ = int.TryParse(Console.ReadLine(), out z);
 
-                //isUsed = EstaUsadaLaCasilla(x, y);
+                isUsed = EstaUsadaLaCasilla(x, y, z);
                 if (!isCorrectX || !isCorrectY || isUsed || x >= dimensionX || y >= dimensionY)
                     Console.WriteLine("Valor incorrecto, Introducelos de nuevo");
             }
@@ -117,14 +116,15 @@ namespace tresEnRallaMulti3D
         private static bool ComprobarTresEnRaya(char simb)
         {
 
-            if (ComprobacionConvencional(simb) || ComprobacionZdimensional(simb))
+            if (ComprobacionConvencional(simb) || ComprobacionZsame(simb) || 
+                ComprobacionZVertical(simb)|| ComprobacionZHoritzontal(simb) ||
+                ComprobacionZDiagonal(simb))
             {
                 return true;
             }
             return false;
         }
-
-        private static bool ComprobacionZdimensional(char simb)
+        private static bool ComprobacionZsame(char simb)
         {
             //Comprobación recta
             for (int z = 0; z < arrayFichas.GetLength(2) - 2; z++)
@@ -145,7 +145,84 @@ namespace tresEnRallaMulti3D
 
             return false;
         }
-
+        private static bool ComprobacionZVertical(char simb)
+        {
+            //Comprobación vertical
+            for (int z = 0; z < arrayFichas.GetLength(2) - 2; z++)
+            {
+                for (int y = 0; y < arrayFichas.GetLength(1) - 2; y++)
+                {
+                    for (int x = 0; x < arrayFichas.GetLength(0); x++)
+                    {
+                        // de Arriba a Abajo || de abajo a arriba
+                        if (
+                            (arrayFichas[x, y, z] == simb && arrayFichas[x, y + 1, z + 1] == simb && arrayFichas[x, y + 2, z + 2] == simb)
+                            || (arrayFichas[x, y + 2, z] == simb && arrayFichas[x, y + 1, z + 1] == simb && arrayFichas[x, y, z + 2] == simb)
+                            )
+                        {
+                            Console.WriteLine("Ha ganado " + simb);
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+        private static bool ComprobacionZHoritzontal(char simb)
+        {
+            //Comprobación Horizontal
+            for (int z = 0; z < arrayFichas.GetLength(2) - 2; z++)
+            {
+                for (int y = 0; y < arrayFichas.GetLength(1); y++)
+                {
+                    for (int x = 0; x < arrayFichas.GetLength(0) - 2; x++)
+                    {
+                        // de Izquierda a derecha || de derecha a izquierda
+                        if (
+                            (arrayFichas[x, y, z] == simb && arrayFichas[x + 1, y, z + 1] == simb && arrayFichas[x + 2, y, z + 2] == simb)
+                            || (arrayFichas[x + 2, y, z] == simb && arrayFichas[x + 1, y, z + 1] == simb && arrayFichas[x, y, z + 2] == simb)
+                            )
+                        {
+                            Console.WriteLine("Ha ganado " + simb);
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+        private static bool ComprobacionZDiagonal(char simb)
+        {
+            //Comprobación Diagonal
+            for (int z = 0; z < arrayFichas.GetLength(2) - 2; z++)
+            {
+                for (int y = 0; y < arrayFichas.GetLength(1) - 2; y++)
+                {
+                    for (int x = 0; x < arrayFichas.GetLength(0) - 2; x++)
+                    {
+                        // Diagonal en \ de arriba a abajo
+                        if (
+                            (arrayFichas[x, y, z] == simb && arrayFichas[x + 1, y + 1, z + 1] == simb && arrayFichas[x + 2, y + 2, z + 2] == simb)
+                            || (arrayFichas[x + 2, y + 2, z] == simb && arrayFichas[x + 1, y + 1, z + 1] == simb && arrayFichas[x, y, z + 2] == simb)
+                            )
+                        {
+                            Console.WriteLine("Ha ganado " + simb);
+                            return true;
+                        }
+                        //Diagonal en / de arriba a abajo
+                        else if (
+                            (arrayFichas[x + 2, y, z] == simb && arrayFichas[x + 1, y + 1, z + 1] == simb && arrayFichas[x, y + 2, z + 2] == simb)
+                            || (arrayFichas[x, y + 2, z] == simb && arrayFichas[x + 1, y + 1, z + 1] == simb && arrayFichas[x + 2, y, z + 2] == simb)
+                            )
+                        {
+                            Console.WriteLine("Ha ganado " + simb);
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
         private static bool ComprobacionConvencional(char simb)
         {
             //Comprobar para cada z, 3 en raya convencionalmente
@@ -205,8 +282,13 @@ namespace tresEnRallaMulti3D
 
 
         }
-
-
+        private static bool EstaUsadaLaCasilla(int x, int y, int z)
+        {
+            if ((x < dimensionX && y < dimensionY && z < dimensionZ) && (arrayFichas[x, y, z] == 'o' || arrayFichas[x, y, z] == 'x'))
+                return true;
+            else
+                return false;
+        }
 
     }
 }
