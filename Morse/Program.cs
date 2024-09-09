@@ -9,15 +9,16 @@ namespace Morse
     internal class Program
     {
         static Dictionary<string, string> SpainToMorse = new Dictionary<string, string>();
+        static Dictionary<string, string> MorseToSpain = new Dictionary<string, string>();
         static void Main(string[] args)
         {
             Iniciar();
-
         }
 
         private static void Iniciar()
         {
             InicializarDiccionarioSpain();
+            InicializarDiccionarioMorse();
 
             while (true)
             {
@@ -82,11 +83,16 @@ namespace Morse
             SpainToMorse.Add("9", "----.");
 
         }
-
+        private static void InicializarDiccionarioMorse()
+        {
+            //Rellenamos el diccionario a partir del anterior en formato invertido
+            foreach (var item in SpainToMorse)
+                MorseToSpain.Add(item.Value, item.Key);
+        }
         private static void SpanishToMorse()
         {
             Console.WriteLine("Introduce lo que quieres convertir a Morse:");
-            string input = Console.ReadLine();
+            string input = Console.ReadLine().ToUpper();
             string[] palabras = input.Split(' ');
 
             foreach (var palabra in palabras)
@@ -95,16 +101,26 @@ namespace Morse
 
                 foreach (var charcacter in chars)
                 {
-                    Console.WriteLine(SpainToMorse[charcacter.ToString()]);
+                    Console.Write(SpainToMorse[charcacter.ToString()]);
+                    Console.Write(" ");
                 }
+                Console.WriteLine();
             }
         }
-
-
         private static void MorseToSpanish()
         {
             Console.WriteLine("Introduce el codigo Morse a traducir:");
             string input = Console.ReadLine();
+            string[] palabras = input.Split(' ');
+
+            foreach (var palabra in palabras)
+            {
+
+                Console.Write(MorseToSpain[palabra]);
+                Console.Write(" ");
+
+            }
+            Console.WriteLine();
 
         }
     }
