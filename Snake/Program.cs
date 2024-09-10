@@ -8,9 +8,18 @@ namespace Snake
         static (int x, int y) dimension = (10, 10);
         static char?[,] arraySnake = new char?[dimension.x, dimension.y];
         static (int x, int y) headPosition = (5, 5);
-        static List<Tuple<int,int>> savedPosition =new List<Tuple<int, int>>();
+        static List<Tuple<int,int>> savedPositions =new List<Tuple<int, int>>();
         static bool isGameOver = false, isEnergy = false;
         static int snakeLength = 3;
+        static Dictionary<eCellType, char?> cellTypes = new Dictionary<eCellType, char?>();
+
+        enum eCellType
+        {
+            EMPTY,
+            SNAKE_BODY,
+            ENERGY
+        }
+
         static void Main(string[] args)
         {
             //TODO Implementar enum + diccionario para el cuerpo del snake, energia y null
@@ -39,17 +48,21 @@ namespace Snake
                 isEnergy = false;
             }
         }
-
         private static void GenerarSnake()
         {
+            //Inicializamos el diccionario con los enums
+            cellTypes.Add(eCellType.EMPTY, null);
+            cellTypes.Add(eCellType.SNAKE_BODY, '@');
+            cellTypes.Add(eCellType.ENERGY, 'e');
+
             for (int i = snakeLength - 1; i >= 0; i--)
             { 
-                arraySnake[headPosition.x, headPosition.y - i] = '@';
-                savedPosition.Add(new Tuple<int,int> (headPosition.x, headPosition.y - i));
+                arraySnake[headPosition.x, headPosition.y - i] = cellTypes[eCellType.SNAKE_BODY];
+                savedPositions.Add(new Tuple<int,int> (headPosition.x, headPosition.y - i));
             }
             
+            
         }
-
         private static void MoverSnake()
         {
 
@@ -78,13 +91,13 @@ namespace Snake
             }
             try
             {
-                if (arraySnake[headPosition.x, headPosition.y] == '@')  //Comprobanos si habia ya la casilla marcada, antes de marcarla
+                if (arraySnake[headPosition.x, headPosition.y] == cellTypes[eCellType.SNAKE_BODY])  //Comprobanos si habia ya la casilla marcada, antes de marcarla
                 {
                     ImprimirTablero();
                     GameOver();
                 }
 
-                arraySnake[headPosition.x, headPosition.y] = '@';
+                arraySnake[headPosition.x, headPosition.y] = cellTypes[eCellType.SNAKE_BODY];
                 UpdateSavedPositions();
             }
             catch (IndexOutOfRangeException ex)
@@ -96,27 +109,23 @@ namespace Snake
             }
 
         }
-
         private static void UpdateSavedPositions()
         {
-            var lastPoint = savedPosition[0];
-            savedPosition.Add(new Tuple<int, int>(headPosition.x, headPosition.y));
+            var lastPoint = savedPositions[0];
+            savedPositions.Add(new Tuple<int, int>(headPosition.x, headPosition.y));
 
             //Eliminamos el ultimo punto del snake
-            if (savedPosition.Count == snakeLength + 1)
+            if (savedPositions.Count == snakeLength + 1)
             {
-                arraySnake[lastPoint.Item1, lastPoint.Item2] = null;
-                savedPosition.Remove(lastPoint);
+                arraySnake[lastPoint.Item1, lastPoint.Item2] = cellTypes[eCellType.EMPTY];
+                savedPositions.Remove(lastPoint);
             }
 
         }
-
-
         private static (int, int) GenerarEnergia()
         {
-            //Tiene que ser Random entre dimensiones
-            //Se inicializa 1 y se reinicia cuando uno se consume
-            //No puede aparecer el los SavedPositions[] (opcional)
+
+            //TODO No puede aparecer el los SavedPositions[] (opcional)
 
             Random rnd = new Random();
             int energyPositionX = rnd.Next(0, dimension.x);
@@ -124,7 +133,7 @@ namespace Snake
 
             try
             {
-                arraySnake[energyPositionX, energyPositionY] = 'e';
+                arraySnake[energyPositionX, energyPositionY] = cellTypes[eCellType.ENERGY];
                 isEnergy = true;
                 return (energyPositionX, energyPositionY);
             }
@@ -133,17 +142,13 @@ namespace Snake
                 
                 Console.WriteLine(ex.ToString());
                 return (0,0);
-                
-
             }
         }
-
         private static void GameOver()
         {
             Console.WriteLine("GAME OVER");
             isGameOver = true;
         }
-
         private static void ImprimirTablero()
         {
             int dimensionX = 10, dimensionY = 10;
@@ -153,7 +158,7 @@ namespace Snake
             {
                 for (int i = 0; i < dimensionX; i++) //Recorremos las X
                 {
-                    if (arraySnake[i, j] == null)
+                    if (arraySnake[i, j] == cellTypes[eCellType.EMPTY])
                         tablero += " " + " | ";
                     else
                         tablero += arraySnake[i, j] + " | ";

@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiaSemana", "DiaSemana\DiaS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snake", "Snake\Snake.csproj", "{CDA7D72D-2AA5-4219-BE07-8EA96F9C9516}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gestorLigaFutbol", "gestorLigaFutbol\gestorLigaFutbol.csproj", "{99D4294C-AFE5-4877-B23F-E5B0797ACAC6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{CDA7D72D-2AA5-4219-BE07-8EA96F9C9516}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CDA7D72D-2AA5-4219-BE07-8EA96F9C9516}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CDA7D72D-2AA5-4219-BE07-8EA96F9C9516}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99D4294C-AFE5-4877-B23F-E5B0797ACAC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99D4294C-AFE5-4877-B23F-E5B0797ACAC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99D4294C-AFE5-4877-B23F-E5B0797ACAC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99D4294C-AFE5-4877-B23F-E5B0797ACAC6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
