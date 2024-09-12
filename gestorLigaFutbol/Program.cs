@@ -10,27 +10,32 @@ namespace gestorLigaFutbol
     internal class Program
     {
         static Dictionary<string, int> liga = new Dictionary<string, int>();
-        static string PATH = "C:\\Users\\user\\Documents\\fichero.txt";
+        static readonly string PATH = @"C:\Users\user\Documents\fichero.txt";
         static void Main(string[] args)
         {
             Iniciar();
-
         }
 
         private static void Iniciar()
         {
             IniciarDiccionario();
-
+            if (!File.Exists(PATH))
+                return; 
+            
             int opcion = -1;
             while (opcion != 0) 
             {
-                Console.WriteLine("[1] - Dar de alta equipo");
-                Console.WriteLine("[2] - Dar de baja equipo");
-                Console.WriteLine("[3] - Modificar puntuacion de un equipo");
-                Console.WriteLine("[4] - Mostrar el archivo por consola");
-                Console.WriteLine("[0] - EXIT");
+                Console.WriteLine(@"
+[1] - Dar de alta equipo
+[2] - Dar de baja equipo
+[3] - Modificar puntuacion de un equipo
+[4] - Mostrar el archivo por consola
+[0] - EXIT");
 
-                opcion = int.Parse(Console.ReadLine());
+                bool isOptionCorrect = int.TryParse(Console.ReadLine(), out opcion);
+                if (!isOptionCorrect)
+                    opcion = -1;
+
                 switch (opcion)
                 {
                     case 1:
@@ -46,9 +51,10 @@ namespace gestorLigaFutbol
                         ImprimirTxt();
                         break;
                 }
+                UpdateDocumento();
+
             }
         }
-
         private static void ImprimirTxt()
         {
             string line;
@@ -64,40 +70,32 @@ namespace gestorLigaFutbol
             }
                 
         }
-
         private static void ModificarPuntuacion()
         {
-            Console.WriteLine("Indica que equipo modificar y su nueva puntuacion [equipo puntuacion]");
+            Console.WriteLine("Indica que equipo modificar y su nueva puntuacion [equipo;puntuacion]");
 
-            string[] input = Console.ReadLine().Split(' ');
+            string[] input = Console.ReadLine().Split(';');
             liga[input[0]] = int.Parse(input[1]);
-            UpdateDocumento();
         }
-
         private static void BajaEquipo()
         {
             Console.WriteLine("Indica que equipo a dar de baja:");
 
             liga.Remove(Console.ReadLine());
-            UpdateDocumento();
         }
-
         private static void AltaEquipo()
         {
-            Console.WriteLine("Indica que equipo y puntuacion das de alta [equipo puntuacion]");
+            Console.WriteLine("Indica que equipo y puntuacion das de alta [equipo;puntuacion]");
 
-            string[] input = Console.ReadLine().Split(' ');
+            string[] input = Console.ReadLine().Split(';');
             liga.Add(input[0], int.Parse(input[1]));
-            UpdateDocumento();
         }
-
         private static void UpdateDocumento()
         {
             using (StreamWriter writer = new StreamWriter(PATH))
                 foreach (var equipo in liga)
                     writer.WriteLine(equipo);
         }
-
         private static void IniciarDiccionario()
         {
             liga.Add("Alavés", 57);
@@ -129,3 +127,4 @@ namespace gestorLigaFutbol
         }
     }
 }
+

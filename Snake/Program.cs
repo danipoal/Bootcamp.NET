@@ -34,13 +34,13 @@ namespace Snake
             {
                 ImprimirTablero();
                 MoverSnake();
-                checkEnergyEat(energyPosition);
+                CheckEnergyEat(energyPosition);
                 if (!isEnergy)
                     energyPosition = GenerarEnergia();
             }
         }
 
-        private static void checkEnergyEat((int x, int y)energyPos)
+        private static void CheckEnergyEat((int x, int y)energyPos)
         {
             if (energyPos == headPosition)
             {
@@ -128,8 +128,19 @@ namespace Snake
             //TODO No puede aparecer el los SavedPositions[] (opcional)
 
             Random rnd = new Random();
-            int energyPositionX = rnd.Next(0, dimension.x);
-            int energyPositionY = rnd.Next(0, dimension.y);
+            int energyPositionX, energyPositionY;
+            bool isEmpty = false;
+
+            //Comprobamos que la energia se cree en un sitio vacio
+            do
+            {
+                energyPositionX = rnd.Next(0, dimension.x);
+                energyPositionY = rnd.Next(0, dimension.y);
+                if (arraySnake[energyPositionX, energyPositionY] == cellTypes[eCellType.EMPTY])
+                    isEmpty = true;
+            }
+            while (!isEmpty);
+
 
             try
             {
