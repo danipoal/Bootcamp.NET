@@ -5,7 +5,7 @@ namespace Snake
 {
     internal class Program
     {
-        static (int x, int y) dimension = (10, 10);
+        static (int x, int y) dimension = (6, 6);
         static char?[,] arraySnake = new char?[dimension.x, dimension.y];
         static (int x, int y) headPosition = (5, 5);
         static List<Tuple<int,int>> savedPositions =new List<Tuple<int, int>>();
@@ -17,12 +17,12 @@ namespace Snake
         {
             EMPTY,
             SNAKE_BODY,
-            ENERGY
+            ENERGY,
+            VENOM
         }
 
         static void Main(string[] args)
         {
-            //TODO Implementar enum + diccionario para el cuerpo del snake, energia y null
             Iniciar();
         }
 
@@ -39,7 +39,6 @@ namespace Snake
                     energyPosition = GenerarEnergia();
             }
         }
-
         private static void CheckEnergyEat((int x, int y)energyPos)
         {
             if (energyPos == headPosition)
@@ -54,6 +53,9 @@ namespace Snake
             cellTypes.Add(eCellType.EMPTY, null);
             cellTypes.Add(eCellType.SNAKE_BODY, '@');
             cellTypes.Add(eCellType.ENERGY, 'e');
+            cellTypes.Add(eCellType.VENOM, 'x');
+
+
 
             for (int i = snakeLength - 1; i >= 0; i--)
             { 
@@ -128,25 +130,15 @@ namespace Snake
             //TODO No puede aparecer el los SavedPositions[] (opcional)
 
             Random rnd = new Random();
-            int energyPositionX, energyPositionY;
-            bool isEmpty = false;
-
-            //Comprobamos que la energia se cree en un sitio vacio
-            do
-            {
-                energyPositionX = rnd.Next(0, dimension.x);
-                energyPositionY = rnd.Next(0, dimension.y);
-                if (arraySnake[energyPositionX, energyPositionY] == cellTypes[eCellType.EMPTY])
-                    isEmpty = true;
-            }
-            while (!isEmpty);
-
+            (int x, int y) energyPosition = GetRandom(rnd);
 
             try
             {
-                arraySnake[energyPositionX, energyPositionY] = cellTypes[eCellType.ENERGY];
+                arraySnake[energyPosition.x, energyPosition.y] = cellTypes[eCellType.ENERGY];
                 isEnergy = true;
-                return (energyPositionX, energyPositionY);
+                //El veneno se reinicia cada vez que se genera energia tambien
+                GenerarVeneno(GetRandom(rnd));
+                return (energyPosition.x, energyPosition.y);
             }
             catch (Exception ex)
             {
@@ -155,6 +147,37 @@ namespace Snake
                 return (0,0);
             }
         }
+        private static void GenerarVeneno((int x, int y)posVeneno)
+        {
+            for (int i = 0; i < dimension.y; i++)
+            {
+                for (int j = 0; j < dimension.x; j++)
+                {
+                    if (arraySnake[j, i] == cellTypes[eCellType.VENOM])
+                        arraySnake[j, i] = cellTypes[eCellType.EMPTY];
+                }
+
+            }
+            arraySnake[posVeneno.x, posVeneno.y] = cellTypes[eCellType.VENOM];
+
+        }
+        private static (int, int) GetRandom(Random rnd)
+        {
+            int x, y;
+            bool isEmpty = false;
+
+            //Comprobamos que la energia se cree en un sitio vacio
+            do
+            {
+                x = rnd.Next(0, dimension.x);
+                y = rnd.Next(0, dimension.y);
+                if (arraySnake[x, y] == cellTypes[eCellType.EMPTY])
+                    isEmpty = true;
+            }
+            while (!isEmpty);
+
+            return (x, y);
+        }
         private static void GameOver()
         {
             Console.WriteLine("GAME OVER");
@@ -162,12 +185,11 @@ namespace Snake
         }
         private static void ImprimirTablero()
         {
-            int dimensionX = 10, dimensionY = 10;
             string tablero = "";
             //arrayFichas[1,0] = 'o';
-            for (int j = 0; j < dimensionY; j++)  //Recorremos las Y
+            for (int j = 0; j < dimension.y; j++)  //Recorremos las Y
             {
-                for (int i = 0; i < dimensionX; i++) //Recorremos las X
+                for (int i = 0; i < dimension.x; i++) //Recorremos las X
                 {
                     if (arraySnake[i, j] == cellTypes[eCellType.EMPTY])
                         tablero += " " + " | ";
@@ -184,6 +206,11 @@ namespace Snake
 
             }
             Console.WriteLine(tablero);
+
+        }
+        private static void CambiarColor()
+        {
+            Console.ForegroundColor = (ConsoleColor)2; // Cambia el color del texto a rojo
 
         }
     }
