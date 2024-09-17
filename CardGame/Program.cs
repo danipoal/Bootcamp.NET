@@ -8,6 +8,8 @@ namespace CardGame
 {
     internal class Program
     {
+        static Baraja baraja = new Baraja();
+        
         static void Main(string[] args)
         {
             Iniciar();
@@ -15,6 +17,8 @@ namespace CardGame
 
         private static void Iniciar()
         {
+            baraja.LlenarBaraja();
+
             int opcion = -1;
             while (opcion != 0)
             {
@@ -41,7 +45,12 @@ namespace CardGame
                         RobarAzar();
                         break;
                     case 4:
-                        RobarNCarta();
+                        Console.WriteLine("Que numero de carta en funcion de su posicion quieres coger");
+                        bool correct = int.TryParse(Console.ReadLine(), out int posicion);
+                        if (!correct)
+                            break;
+                        if (posicion <= baraja.NumRemainCartas())
+                            RobarNCarta(posicion);
                         break;
                     default:
                         break;
@@ -51,10 +60,10 @@ namespace CardGame
 
         private static void RobarAzar()
         {
-            throw new NotImplementedException();
+
         }
 
-        private static void RobarNCarta()
+        private static void RobarNCarta(int posicion)
         {
             throw new NotImplementedException();
         }
@@ -66,7 +75,9 @@ namespace CardGame
 
         private static void RobarCarta()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Carta robada: ");
+            Carta carta = baraja.RobarCarta();
+            Console.WriteLine("Carta: " + carta.Numero.ToString() + " " + carta.Palo.ToString());
         }
     }
 }
