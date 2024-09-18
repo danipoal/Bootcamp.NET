@@ -24,40 +24,39 @@ namespace CardGame
             baraja.LlenarBaraja();
             
             InicializarScores();
+
+            baraja.Barajar();
+            RepartirCartas();
+
             do
             {
                 IniciarRonda();
                 Console.WriteLine("----------------------------");
             }
-            while (baraja.NumRemainCartas() > nJugadores);
+            while (jugadores[1].GetRemainingCards() != 0);
 
-            
-
-            
         }
-
         private static void InicializarScores()
         {
             for (int i = 0; i < nJugadores; i++)
             {
-                PlayerData Jugador = new PlayerData(i, 0, null);
+                PlayerData Jugador = new PlayerData(i, 0, new Baraja());
                 jugadores.Add(Jugador);
                 //Console.WriteLine(Jugador.ToString());
             }
         }
-
         private static void IniciarRonda()
         {
-            //Repartir cartas, comparar cada una y sumar la puntuacion
-            baraja.Barajar();
 
             Carta cartaGanadora = new Carta(0, ETypeCard.BASTOS);
             int idJugadorGanador = 0;
             foreach (PlayerData jugador in jugadores)
             {
-                jugador.Carta = baraja.RobarCarta();
-                cartaGanadora = baraja.CompararCartas(cartaGanadora, jugador.Carta);
-                if (cartaGanadora == jugador.Carta)
+                Carta cartaJugador = jugador.Cartas.RobarCarta();
+                jugador.LastCard = cartaJugador;
+
+                cartaGanadora = baraja.CompararCartas(cartaGanadora, cartaJugador);
+                if (cartaGanadora == cartaJugador)
                     idJugadorGanador = jugador.Id;
                 //Console.WriteLine("Carta de jugador " + jugador.Id + ": " + jugador.Carta.ToString());
             }
@@ -69,11 +68,20 @@ namespace CardGame
             foreach (var item in jugadores)
             {
                 Console.WriteLine(item.ToString());
-                item.Carta = null;
             }
 
         }
-
+        private static void RepartirCartas()
+        {
+            while (baraja.NumRemainCartas() > nJugadores)
+            {
+                foreach (PlayerData jugador in jugadores)
+                {
+                    Carta carta = baraja.RobarCarta();
+                    jugador.Cartas.AñadirCarta(carta);
+                }
+            }
+        }
         private static void AskPlayers()
         {
             Console.WriteLine("Cuantos jugadores van a jugar?");
@@ -89,7 +97,6 @@ namespace CardGame
         {
             baraja.RobarAzar();
         }
-
         private static void RobarNCarta()
         {
             Console.WriteLine("Que numero de carta en funcion de su posicion quieres coger");
@@ -101,12 +108,10 @@ namespace CardGame
 
            
         }
-
         private static void Barajar()
         {
             baraja.Barajar();
         }
-
         private static void RobarCarta()
         {
             Console.WriteLine("Carta robada: ");

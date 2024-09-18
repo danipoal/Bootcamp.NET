@@ -10,26 +10,30 @@ namespace CardGame
     {
         public int Id { get; set; }
         public int Puntuacion { get; set; }
-        public Carta Carta { get; set; }
+        public Baraja Cartas { get; set; }
+        public Carta LastCard { get; set; }
 
         public PlayerData() 
         { 
             
         }
-        public PlayerData(int id, int puntuacion, Carta carta)
+        public PlayerData(int id, int puntuacion, Baraja cartas)
         {
             Id = id;
             Puntuacion = puntuacion;
-            Carta = carta;
+            Cartas = cartas;
         }
         public override string ToString()
         {
-            return "Jugador " + (Id+1) + ": Tiene puntuacion " + Puntuacion + " y carta " + Carta;
+            return "Jugador " + (Id+1) + ": Tiene puntuacion " + Puntuacion + " y carta " + LastCard.ToString();
         }
-
         public void AñadirPuntuacion()
         {
              Puntuacion++;
+        }
+        public int GetRemainingCards()
+        {
+            return this.Cartas.NumRemainCartas();
         }
     }
 }

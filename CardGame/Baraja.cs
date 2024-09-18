@@ -71,6 +71,10 @@ namespace CardGame
                 return carta2;
 
         }
+        public void AñadirCarta(Carta carta)
+        {
+            cartas.Add(carta);
+        }
         public void Barajar()
         {
             //ImprimirBaraja();
