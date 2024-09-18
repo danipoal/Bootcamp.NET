@@ -46,6 +46,7 @@
     <Compile Include="Baraja.cs" />
     <Compile Include="Carta.cs" />
     <Compile Include="ETypeCard.cs" />
+    <Compile Include="PlayerData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

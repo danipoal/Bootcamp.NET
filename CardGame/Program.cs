@@ -9,68 +9,102 @@ namespace CardGame
     internal class Program
     {
         static Baraja baraja = new Baraja();
+        static int nJugadores = 3;
+        static List<PlayerData> jugadores = new List<PlayerData>();
+        
         
         static void Main(string[] args)
         {
-            Iniciar();
+            IniciarPrograma();
         }
 
-        private static void Iniciar()
+        private static void IniciarPrograma()
         {
+            //AskPlayers();
             baraja.LlenarBaraja();
-
-            int opcion = -1;
-            while (opcion != 0)
+            
+            InicializarScores();
+            do
             {
-                Console.WriteLine(@"
-[1] - Robar Carta
-[2] - Barajar
-[3] - Robar al Azar
-[4] - Robar en la posicion indicada
-[0] - EXIT");
+                IniciarRonda();
+                Console.WriteLine("----------------------------");
+            }
+            while (baraja.NumRemainCartas() > nJugadores);
 
-                bool isOptionCorrect = int.TryParse(Console.ReadLine(), out opcion);
-                if (!isOptionCorrect)
-                    opcion = -1;
+            
 
-                switch (opcion)
-                {
-                    case 1:
-                        RobarCarta();
-                        break;
-                    case 2:
-                        Barajar();
-                        break;
-                    case 3:
-                        RobarAzar();
-                        break;
-                    case 4:
-                        Console.WriteLine("Que numero de carta en funcion de su posicion quieres coger");
-                        bool correct = int.TryParse(Console.ReadLine(), out int posicion);
-                        if (!correct)
-                            break;
-                        if (posicion <= baraja.NumRemainCartas())
-                            RobarNCarta(posicion);
-                        break;
-                    default:
-                        break;
-                }
+            
+        }
+
+        private static void InicializarScores()
+        {
+            for (int i = 0; i < nJugadores; i++)
+            {
+                PlayerData Jugador = new PlayerData(i, 0, null);
+                jugadores.Add(Jugador);
+                //Console.WriteLine(Jugador.ToString());
             }
         }
 
-        private static void RobarAzar()
+        private static void IniciarRonda()
         {
+            //Repartir cartas, comparar cada una y sumar la puntuacion
+            baraja.Barajar();
+
+            Carta cartaGanadora = new Carta(0, ETypeCard.BASTOS);
+            int idJugadorGanador = 0;
+            foreach (PlayerData jugador in jugadores)
+            {
+                jugador.Carta = baraja.RobarCarta();
+                cartaGanadora = baraja.CompararCartas(cartaGanadora, jugador.Carta);
+                if (cartaGanadora == jugador.Carta)
+                    idJugadorGanador = jugador.Id;
+                //Console.WriteLine("Carta de jugador " + jugador.Id + ": " + jugador.Carta.ToString());
+            }
+
+            Console.WriteLine("Carta de GANADORA " + cartaGanadora.ToString());
+            //Añadir puntuacion
+            jugadores[idJugadorGanador].AñadirPuntuacion();
+
+            foreach (var item in jugadores)
+            {
+                Console.WriteLine(item.ToString());
+                item.Carta = null;
+            }
 
         }
 
-        private static void RobarNCarta(int posicion)
+        private static void AskPlayers()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Cuantos jugadores van a jugar?");
+
+            bool isOk = int.TryParse(Console.ReadLine(), out nJugadores);
+            if (!isOk || nJugadores > 5)
+            {
+                Console.WriteLine("Input incorrecto o demasiados jugadores. \n");
+                AskPlayers();
+            }    
+        }
+        private static void RobarAzar()
+        {
+            baraja.RobarAzar();
+        }
+
+        private static void RobarNCarta()
+        {
+            Console.WriteLine("Que numero de carta en funcion de su posicion quieres coger");
+            bool correct = int.TryParse(Console.ReadLine(), out int posicion);
+            if (!correct)
+                RobarNCarta();
+            if (posicion <= baraja.NumRemainCartas())
+                baraja.RobarCartaN(posicion);
+
+           
         }
 
         private static void Barajar()
         {
-            throw new NotImplementedException();
+            baraja.Barajar();
         }
 
         private static void RobarCarta()

@@ -1,4 +1,5 @@
-﻿using System.Dynamic;
+﻿using System.Diagnostics.Eventing.Reader;
+using System.Dynamic;
 
 namespace CardGame
 {
@@ -12,8 +13,10 @@ namespace CardGame
         public Carta(int numero, ETypeCard palo) { this.numero = numero; this.palo = palo; }
         public int Numero {get { return numero;} set { numero = value; } }
         public ETypeCard Palo {get { return palo;} set { palo = value; } }
-
-        
+        public override string ToString() 
+        { 
+            return Numero.ToString() + " " + Palo.ToString();
+        }
 
     }
 }
