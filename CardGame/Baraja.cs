@@ -29,7 +29,7 @@ namespace CardGame
             foreach (Carta item in cartas)
                 Console.WriteLine(item.Numero + " " + item.Palo);
         }
-        public int NumRemainCartas()
+        public int NumCartas()
         {
             return cartas.Count;
         }

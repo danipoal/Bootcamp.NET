@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace CardGame
 {
-    internal class PlayerData
+    internal class Jugador
     {
         public int Id { get; set; }
         public int Puntuacion { get; set; }
         public Baraja Cartas { get; set; }
         public Carta LastCard { get; set; }
 
-        public PlayerData() 
+        public Jugador() 
         { 
             
         }
-        public PlayerData(int id, int puntuacion, Baraja cartas)
+        public Jugador(int id, int puntuacion, Baraja cartas)
         {
             Id = id;
             Puntuacion = puntuacion;
@@ -25,15 +25,15 @@ namespace CardGame
         }
         public override string ToString()
         {
-            return "Jugador " + (Id+1) + ": Tiene puntuacion " + Puntuacion + " y carta " + LastCard.ToString()+ " Y tiene " + Cartas.NumRemainCartas() + " cartas";
+            return "Jugador " + (Id+1) + ": Tiene puntuacion " + Puntuacion + " y carta " + LastCard.ToString()+ " Y tiene " + Cartas.NumCartas() + " cartas";
         }
         public void AñadirPuntuacion()
         {
              Puntuacion++;
         }
-        public int GetRemainingCards()
+        public int NumCartas()
         {
-            return this.Cartas.NumRemainCartas();
+            return this.Cartas.NumCartas();
         }
     }
 }

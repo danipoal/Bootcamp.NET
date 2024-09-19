@@ -11,12 +11,12 @@ namespace CardGame
     {    
         static Baraja baraja = new Baraja();
         static int nJugadores = 3;
-        static List<PlayerData> jugadores = new List<PlayerData>();
+        static List<Jugador> jugadores = new List<Jugador>();
 
         
         public void IniciarJuego()
         {
-            //AskPlayers();
+            AskPlayers();
             baraja.LlenarBaraja();
 
             InicializarScores();
@@ -36,20 +36,21 @@ namespace CardGame
         {
             for (int i = 0; i < nJugadores; i++)
             {
-                PlayerData Jugador = new PlayerData(i, 0, new Baraja());
+                Jugador Jugador = new Jugador(i, 0, new Baraja());
                 jugadores.Add(Jugador);
                 //Console.WriteLine(Jugador.ToString());
             }
         }
         private static void IniciarRonda()
         {
-            PierdeJugador();
+            LimpiarJugadores(); //Se comprueba dos veces porque solo elimina a un jugador
+            LimpiarJugadores();
 
             Carta cartaGanadora = new Carta(0, ETypeCard.BASTOS);
-            PlayerData jugadorGanador = new PlayerData();
-            foreach (PlayerData jugador in jugadores)
+            Jugador jugadorGanador = new Jugador();
+            foreach (Jugador jugador in jugadores)
             {
-                if (jugador.Cartas.NumRemainCartas() == 0)
+                if (jugador.Cartas.NumCartas() == 0)
                     Console.WriteLine("Jugador SIN CARTAAAAS");
 
                 Carta cartaJugador = jugador.Cartas.RobarCarta();
@@ -66,7 +67,7 @@ namespace CardGame
             Console.WriteLine("Carta de GANADORA " + cartaGanadora.ToString());
 
 
-            foreach (PlayerData jugador in jugadores)
+            foreach (Jugador jugador in jugadores)
             {
                 //Encuentra el ganador
                 if (jugador == jugadorGanador)
@@ -74,7 +75,7 @@ namespace CardGame
                     //Añadir puntuacion
                     jugador.AñadirPuntuacion();
                     //Añadir cartas a el ganador de todos
-                    foreach (PlayerData jug in jugadores)
+                    foreach (Jugador jug in jugadores)
                         jugadorGanador.Cartas.AñadirCarta(jug.LastCard);
                 }
                 Console.WriteLine(jugador.ToString());
@@ -86,9 +87,9 @@ namespace CardGame
         }
         private static void RepartirCartas()
         {
-            while (baraja.NumRemainCartas() > nJugadores)
+            while (baraja.NumCartas() > nJugadores)
             {
-                foreach (PlayerData jugador in jugadores)
+                foreach (Jugador jugador in jugadores)
                 {
                     Carta carta = baraja.RobarCarta();
                     jugador.Cartas.AñadirCarta(carta);
@@ -106,16 +107,16 @@ namespace CardGame
                 AskPlayers();
             }
         }
-        private static void PierdeJugador()
+        private static void LimpiarJugadores()
         {
-            PlayerData jugadorEliminar = new PlayerData();
-            foreach (PlayerData jugador in jugadores)
+            Jugador jugadorEliminar = new Jugador();
+            foreach (Jugador jugador in jugadores)
             {
                 //Hardcode eliminar 1
                 //if (jugadores[1].Cartas.NumRemainCartas() > 0)
                 //jugadores[1].Cartas.RobarCarta();
 
-                if (jugador.Cartas.NumRemainCartas() == 0)
+                if (jugador.Cartas.NumCartas() == 0)
                 {
                     jugadorEliminar = jugador;
 
@@ -133,7 +134,7 @@ namespace CardGame
             bool correct = int.TryParse(Console.ReadLine(), out int posicion);
             if (!correct)
                 RobarNCarta();
-            if (posicion <= baraja.NumRemainCartas())
+            if (posicion <= baraja.NumCartas())
                 baraja.RobarCartaN(posicion);
 
 
