@@ -25,7 +25,7 @@ namespace CardGame
         }
         public override string ToString()
         {
-            return "Jugador " + (Id+1) + ": Tiene puntuacion " + Puntuacion + " y carta " + LastCard.ToString();
+            return "Jugador " + (Id+1) + ": Tiene puntuacion " + Puntuacion + " y carta " + LastCard.ToString()+ " Y tiene " + Cartas.NumRemainCartas() + " cartas";
         }
         public void AñadirPuntuacion()
         {

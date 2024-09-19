@@ -33,7 +33,7 @@ namespace CardGame
                 IniciarRonda();
                 Console.WriteLine("----------------------------");
             }
-            while (jugadores[1].GetRemainingCards() != 0);
+            while (jugadores.Count != 1);
 
         }
         private static void InicializarScores()
@@ -47,29 +47,46 @@ namespace CardGame
         }
         private static void IniciarRonda()
         {
+            PierdeJugador();
 
             Carta cartaGanadora = new Carta(0, ETypeCard.BASTOS);
-            int idJugadorGanador = 0;
+            PlayerData jugadorGanador = new PlayerData();
             foreach (PlayerData jugador in jugadores)
             {
+                if (jugador.Cartas.NumRemainCartas() == 0)
+                    Console.WriteLine("Jugador SIN CARTAAAAS");
+
                 Carta cartaJugador = jugador.Cartas.RobarCarta();
                 jugador.LastCard = cartaJugador;
 
                 cartaGanadora = baraja.CompararCartas(cartaGanadora, cartaJugador);
                 if (cartaGanadora == cartaJugador)
-                    idJugadorGanador = jugador.Id;
+                    jugadorGanador = jugador;
                 //Console.WriteLine("Carta de jugador " + jugador.Id + ": " + jugador.Carta.ToString());
+
+
             }
 
             Console.WriteLine("Carta de GANADORA " + cartaGanadora.ToString());
-            //Añadir puntuacion
-            jugadores[idJugadorGanador].AñadirPuntuacion();
 
-            foreach (var item in jugadores)
+
+            foreach (PlayerData jugador in jugadores)
             {
-                Console.WriteLine(item.ToString());
+                //Encuentra el ganador
+                if (jugador == jugadorGanador)
+                {                
+                    //Añadir puntuacion
+                    jugador.AñadirPuntuacion();
+                    //Añadir cartas a el ganador de todos
+                    foreach (PlayerData jug in jugadores)
+                        jugadorGanador.Cartas.AñadirCarta(jug.LastCard);
+                }
+                Console.WriteLine(jugador.ToString());
             }
 
+            //Finalmente copiamos el jugador ganador en su sitio
+            //Eliminar el jugador si ya no tiene cartas
+            //PierdeJugador();
         }
         private static void RepartirCartas()
         {
@@ -92,6 +109,23 @@ namespace CardGame
                 Console.WriteLine("Input incorrecto o demasiados jugadores. \n");
                 AskPlayers();
             }    
+        }
+        private static void PierdeJugador()
+        {
+            PlayerData jugadorEliminar = new PlayerData();
+            foreach (PlayerData jugador in jugadores)
+            {
+                //Hardcode eliminar 1
+                //if (jugadores[1].Cartas.NumRemainCartas() > 0)
+                    //jugadores[1].Cartas.RobarCarta();
+
+                if (jugador.Cartas.NumRemainCartas() == 0)
+                {
+                    jugadorEliminar = jugador;
+
+                }
+            }
+            jugadores.Remove(jugadorEliminar);
         }
         private static void RobarAzar()
         {
