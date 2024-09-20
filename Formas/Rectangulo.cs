@@ -16,12 +16,12 @@ namespace Formas
             this.Altura = altura;
             this.Base = base1;
             this.NLados = 4;
-            this.Perimetro = CalcPerimetro(base1, altura);
-            this.Area = CalcArea(base1, altura);
         }
         public override string ToString()
         {
-            return "Rectangulo de base: " + Base + " altura: " + Altura + base.ToString();
+            return "Rectangulo de base: " + Base + " altura: " + Altura + 
+                " perimetro: " + CalcPerimetro(Base,Altura) + "cm y area: " + 
+                CalcArea(Base,Altura) + "cm2 " +  base.ToString();
         }
         public int CalcArea(int base1, int altura)
         {

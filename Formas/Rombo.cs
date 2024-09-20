@@ -16,8 +16,6 @@ namespace Formas
             this.Diagonal1 = d1;
             this.Diagonal2 = d2;
             this.NLados = 4;
-            this.Area =  CalcArea(d1, d2);
-            this.Perimetro = (int) CalcPerimetro(d1, d2);
         }
         public override string ToString()
         {

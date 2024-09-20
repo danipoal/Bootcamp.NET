@@ -11,13 +11,13 @@ namespace Formas
         protected int NLados { get; set; }
 
         public Poligono() { }
-        public Poligono(int area, int perimetro, int nlados):base(area, perimetro) 
+        public Poligono(int nlados)
         {
             NLados = nlados; 
         }
         public override string ToString()
         {
-            return " con num. lados: "+ NLados + " area: " + Area + " perimetro: " + Perimetro;
+            return " con num. lados: "+ NLados;
         }
 
     }

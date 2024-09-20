@@ -13,15 +13,18 @@ namespace Formas
         protected int Alpha { get; set; }
 
         public Triangulo() { }
-        public Triangulo(int b, int a, int alpha)
+        public Triangulo(int lados, int b, int a, int alpha) : base(lados)
         {
             Base = b;
             Altura = a;
             Alpha = alpha;
-            NLados = 3;
-            Area = CalcArea(b,a);
-            Perimetro = CalcPerimetro(b,a,alpha);
 
+        }
+        public override string ToString()
+        {
+            return "Triangulo de " + Base + "x" + Altura +" y angulo " + Alpha + 
+                "º con Area: " + CalcArea(Base,Altura) + "cm2 y perimetro: " + 
+                CalcPerimetro(Base,Altura, Alpha) + "cm " + base.ToString();
         }
         public int CalcArea(int b, int a)
         {
@@ -33,6 +36,7 @@ namespace Formas
             int l2 = (int) Math.Sqrt(Math.Pow(l1,2) - Math.Pow(a,2));
             return b + l1 + l2;
         }
+        
 
 
     }

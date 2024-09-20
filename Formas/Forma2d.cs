@@ -8,19 +8,13 @@ namespace Formas
 {
     internal class Forma2d
     {
-        protected int Area { get; set; }
-        protected int Perimetro { get; set; }
 
         public Forma2d() { }
-        public Forma2d(int area, int perimetro) 
-        { 
-            this.Area = area;
-            this.Perimetro = perimetro;
-        }
+
 
         public override string ToString()
         {
-            return "Es una forma2D con area: " + this.Area + " y perimetro: " + this.Perimetro;
+            return "Es una forma2D ";
         }
     }
 }

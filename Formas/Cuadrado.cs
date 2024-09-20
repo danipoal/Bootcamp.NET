@@ -9,13 +9,11 @@ namespace Formas
     internal class Cuadrado : Rectangulo
     {
         public Cuadrado() { }
-        public Cuadrado(int lado) 
+        public Cuadrado(int lado): base(lado, lado)
         { 
             this.Base = lado;
             this.Altura = lado;
             this.NLados = 4;
-            this.Perimetro = CalcPerimetro(lado, lado);
-            this.Area = CalcArea(lado, lado);
         }
         public override string ToString()
         {

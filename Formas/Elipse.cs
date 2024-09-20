@@ -16,12 +16,10 @@ namespace Formas
         {
             Radio1 = r1;
             Radio2 = r2;
-            Area = CalcArea(r1,r2);
-            Perimetro = CalcPerimetro(r1, r2);
         }
         public override string ToString()
         {
-            return "elipse con area: " + Area + " Perimetro: " + Perimetro + " de " + Radio1 + "x" + Radio2;
+            return "elipse con area: " + CalcArea(Radio1,Radio2) + "cm2 Perimetro: " + CalcPerimetro(Radio1, Radio2) + "cm de " + Radio1 + "x" + Radio2;
         }
         public virtual int CalcArea(int a, int b)
         {
