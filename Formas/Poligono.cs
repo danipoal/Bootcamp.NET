@@ -17,7 +17,7 @@ namespace Formas
         }
         public override string ToString()
         {
-            return " con num. lados: "+ NLados + " area: " + this.Area + " perimetro: " + this.Perimetro;
+            return " con num. lados: "+ NLados + " area: " + Area + " perimetro: " + Perimetro;
         }
 
     }

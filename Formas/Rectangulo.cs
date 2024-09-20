@@ -21,7 +21,7 @@ namespace Formas
         }
         public override string ToString()
         {
-            return "Rectangulo de base: " + Base + " altura: " + Altura + " area: " + Area + " perim: " + Perimetro;
+            return "Rectangulo de base: " + Base + " altura: " + Altura + base.ToString();
         }
         public int CalcArea(int base1, int altura)
         {

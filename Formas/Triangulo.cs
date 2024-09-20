@@ -18,7 +18,10 @@ namespace Formas
             Base = b;
             Altura = a;
             Alpha = alpha;
-            Area = 0;
+            NLados = 3;
+            Area = CalcArea(b,a);
+            Perimetro = CalcPerimetro(b,a,alpha);
+
         }
         public int CalcArea(int b, int a)
         {
