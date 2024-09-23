@@ -19,16 +19,16 @@ namespace Formas
         public override string ToString()
         {
             return "[Rectangulo] -> de base: " + Base + " altura: " + Altura + 
-                " perimetro: " + CalcPerimetro(Base,Altura) + "cm y area: " + 
-                CalcArea(Base,Altura) + "cm2 " +  base.ToString();
+                " perimetro: " + CalcPerimetro() + "cm y area: " + 
+                CalcArea() + "cm2 " +  base.ToString();
         }
-        public int CalcArea(int base1, int altura)
+        public override int CalcArea()
         {
-            return base1 * altura;
+            return Base * Altura;
         }
-        public int CalcPerimetro(int base1, int altura) 
+        public override int CalcPerimetro() 
         {
-            return base1 * 2 + altura * 2;
+            return Base * 2 + Altura * 2;
         }
 
     }

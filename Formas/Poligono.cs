@@ -19,6 +19,14 @@ namespace Formas
         {
             return " con num. lados: "+ NLados;
         }
+        public override int CalcArea()
+        {
+            return 0;
+        }
+        public override int CalcPerimetro()
+        {
+            return 0;
+        }
 
     }
 }

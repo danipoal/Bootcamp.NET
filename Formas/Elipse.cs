@@ -19,15 +19,15 @@ namespace Formas
         }
         public override string ToString()
         {
-            return "[Elipse] -> area: " + CalcArea(Radio1,Radio2) + "cm2 perimetro: " + CalcPerimetro(Radio1, Radio2) + "cm de " + Radio1 + "x" + Radio2;
+            return "[Elipse] -> area: " + CalcArea() + "cm2 perimetro: " + CalcPerimetro() + "cm de " + Radio1 + "x" + Radio2;
         }
-        public virtual int CalcArea(int a, int b)
+        public override int CalcArea()
         {
-            return (int) Math.PI * a * b; ;
+            return (int) Math.PI * Radio1 * Radio2; 
         }
-        public virtual int CalcPerimetro(int a, int b)
+        public override int CalcPerimetro()
         {
-            return (int) (Math.PI * (3 * (a + b) - Math.Sqrt((3 * a + b) * (a + 3 * b))));
+            return (int) (Math.PI * (3 * (Radio1 + Radio2) - Math.Sqrt((3 * Radio1 + Radio2) * (Radio1 + 3 * Radio2))));
         }
 
 

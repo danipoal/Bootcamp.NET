@@ -23,23 +23,23 @@ namespace Formas
         public override string ToString()
         {
             return "[Triangulo] -> de " + Base + "x" + Altura +" y angulo " + Alpha + 
-                "º con Area: " + CalcArea(Base,Altura) + "cm2 y perimetro: " + 
-                CalcPerimetro(Base,Altura, Alpha) + "cm " + base.ToString();
+                "º con Area: " + CalcArea() + "cm2 y perimetro: " + 
+                CalcPerimetro() + "cm " + base.ToString();
         }
-        public int CalcArea(int b, int a)
+        public override int CalcArea()
         {
-            return b * a / 2;
+            return Base * Altura / 2;
         }
-        public int CalcPerimetro(int b, int a, int alpha)
+        public override int CalcPerimetro()
         {
             // Convertir ángulo a radianes
-            double alphaRadians = alpha * Math.PI / 180;
+            double alphaRadians = Alpha * Math.PI / 180;
 
             // Usar la Ley de los Cosenos para calcular el tercer lado
-            double c = Math.Sqrt(a * a + b * b - 2 * a * b * Math.Cos(alphaRadians));
+            double c = Math.Sqrt(Altura * Altura + Base * Base - 2 * Altura * Base * Math.Cos(alphaRadians));
 
             // Calcular el perímetro sumando los tres lados
-            return (int)(a + b + c); // Cast para convertir a int, asumiendo que quieres el resultado como entero
+            return (int)(Altura + Base + c); // Cast para convertir a int, asumiendo que quieres el resultado como entero
         }
         
 

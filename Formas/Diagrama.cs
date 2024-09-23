@@ -19,6 +19,7 @@ namespace Formas
             Triangulo,
             Elipse,
             Circulo,
+            Area = 10,
             Imprimir = 20
         }
 
@@ -36,6 +37,7 @@ Que Forma quieres añadir a la lista?
 [4] Triangulo
 [5] Elipse
 [6] Circulo
+[10] Calcular TOTAL Area y Perimetro
 [20] Imprimir lista de objetos 
 [0] EXIT");
 
@@ -58,27 +60,47 @@ Que Forma quieres añadir a la lista?
 
 
                 eFormas opcion = (eFormas)opcionNum;
-
+                List<int> param = new List<int>(); 
 
                 switch (opcion)
                 {
                     case eFormas.Cuadrado:
-                        GenerarCuadrado();
+                        param = GetParams(1);
+
+                        Rectangulo cuadrado = new Cuadrado(param[0], 4);
+                        figuras.Add(cuadrado);
                         break;
                     case eFormas.Rectangulo:
-                        GenerarRectangulo();
+                        param = GetParams(2);
+
+                        Rectangulo rect = new Rectangulo(param[0], param[1], 4);
+                        figuras.Add(rect);
                         break;
                     case eFormas.Rombo:
-                        GenerarRombo();
+                        param = GetParams(2);
+
+                        Rombo romb = new Rombo(param[0], param[1]);
+                        figuras.Add(romb);
                         break;
                     case eFormas.Triangulo:
-                        GenerarTriangulo();
+                        param = GetParams(3);
+
+                        Triangulo tri = new Triangulo(3, param[0], param[1], param[2]);
+                        figuras.Add(tri);
                         break;
                     case eFormas.Elipse:
-                        GenerarElipse();
+                        param = GetParams(2);
+
+                        Elipse elips = new Elipse(param[0], param[1]);
+                        figuras.Add(elips);
                         break;
                     case eFormas.Circulo:
-                        GenerarCirculo();
+                        param = GetParams(1);
+
+                        Circulo circ = new Circulo(param[0]);
+                        figuras.Add(circ); break;
+                    case eFormas.Area:
+                        TotalAreaPerim();
                         break;
                     case eFormas.Imprimir:
                         foreach (Forma2d figura in figuras)
@@ -89,6 +111,9 @@ Que Forma quieres añadir a la lista?
                     case eFormas.None:
                         return;
                 }
+                if (0 < opcionNum && 10 > opcionNum)
+                    Console.WriteLine(figuras[figuras.Count - 1].ToString());
+
                 if (isAleatorio)
                     Thread.Sleep(100);
             }
@@ -108,184 +133,32 @@ Que Forma quieres añadir a la lista?
             return rnd.Next(1, max);
         }
 
-        private void GenerarCirculo()
-        {
-            Console.WriteLine("Que radio quieres que tenga? [radio]");
-
-            bool isOk1 = true;
-            int radio;
+        private List<int> GetParams(int nParametros)
+        {                           
+            List<int> list = new List<int>();
 
             if (isAleatorio)
-            {
-                radio = ChooseRand(20);
-                Console.WriteLine(radio);
-            }
+                for (int i = 0; i < nParametros; i++)
+                    list.Add(ChooseRand(45));
             else
-                 isOk1 = int.TryParse(Console.ReadLine(), out radio);
+                for (int i = 0; i < nParametros; i++)
+                {
+                    Console.WriteLine("Introduce el parametro " + i);
+                    int.TryParse(Console.ReadLine(), out int param);
+                    list.Add(param);
+                }
 
-
-
-
-            if (isOk1)
-            {
-                Circulo circ = new Circulo(radio);
-                figuras.Add(circ);
-            }
-            else
-                Console.WriteLine("Error");
+            return list;
         }
-
-        private void GenerarElipse()
+        private void TotalAreaPerim()
         {
-            Console.WriteLine("Que dimensiones quieres que tenga? [diagonal horitz,diagonal vertical]");
-
-            int dHoritz, dVert;
-            bool isOk1 = true, isOk2 = true;
-
-            if (isAleatorio)
+            int perimetro = 0, area = 0;
+            foreach (Forma2d fig in figuras)
             {
-                dHoritz = ChooseRand(20);
-                dVert = ChooseRand(20);
-                Console.WriteLine($"[{dHoritz} ,{dVert}]");
+                perimetro += fig.CalcPerimetro();
+                area += fig.CalcArea();
             }
-            else
-            {
-                string[] resultado = Console.ReadLine().Split(',');
-                isOk1 = int.TryParse(resultado[0], out dHoritz);
-                isOk2 = int.TryParse(resultado[1], out dVert);
-            }
-
-
-
-
-            if (isOk1 && isOk2)
-            {
-                Elipse elips = new Elipse(dHoritz, dVert);
-                figuras.Add(elips);
-            }
-            else
-                Console.WriteLine("Error");
-        }
-
-        private void GenerarTriangulo()
-        {
-            Console.WriteLine("Que dimensiones quieres que tenga? [base, altura, angulo]");
-
-            int base1, altura, angulo;
-            bool isOk1 = true, isOk2 = true, isOk3 = true;
-
-            if (isAleatorio)
-            {
-                base1 = ChooseRand(20);
-                altura = ChooseRand(20);
-                angulo = ChooseRand(45);
-                Console.WriteLine($"[{base1} ,{altura}, {angulo}º]");
-            }
-            else
-            {
-                string[] resultado = Console.ReadLine().Split(',');
-                isOk1 = int.TryParse(resultado[0], out base1);
-                isOk2 = int.TryParse(resultado[1], out altura);
-                isOk3 = int.TryParse(resultado[2], out angulo);
-            }
-
-
-
-
-            if (isOk1 && isOk2)
-            {
-                Triangulo tri = new Triangulo(3, base1, altura, angulo);
-                figuras.Add(tri);
-            }
-            else
-                Console.WriteLine("Error");
-        }
-
-        private void GenerarRombo()
-        {
-            Console.WriteLine("Que dimensiones quieres que tenga? [diagonal1,diagonal2]");
-
-            int d1, d2;
-            bool isOk1 = true, isOk2 = true;
-
-            if (isAleatorio)
-            {
-                d1 = ChooseRand(20);
-                d2 = ChooseRand(20);
-                Console.WriteLine($"[{d1} ,{d2}]");
-            }
-            else
-            {
-                string[] resultado = Console.ReadLine().Split(',');
-                isOk1 = int.TryParse(resultado[0], out d1);
-                isOk2 = int.TryParse(resultado[1], out d2);
-            }
-
-
-            if (isOk1 && isOk2)
-            {
-                Rombo romb = new Rombo(d1, d2);
-                figuras.Add(romb);
-            }
-            else
-                Console.WriteLine("Error");
-        }
-
-        private void GenerarRectangulo()
-        {
-            Console.WriteLine("Que dimensiones quieres que tenga? [base,altura]");
-
-            int base1, altura;
-            bool isOk1 = true, isOk2 = true;
-
-            if (isAleatorio)
-            {
-                base1 = ChooseRand(20);
-                altura = ChooseRand(20);
-                Console.WriteLine($"[{base1} ,{altura}]");
-            }
-            else
-            {
-                string[] resultado = Console.ReadLine().Split(',');
-                isOk1 = int.TryParse(resultado[0], out base1);
-                isOk2 = int.TryParse(resultado[1], out altura);
-            }
-
-            if (isOk1 && isOk2)
-            {
-                Rectangulo rect = new Rectangulo(base1, altura, 4);
-                figuras.Add(rect);
-            }
-            else
-                Console.WriteLine("Error");
-
-        }
-
-        private void GenerarCuadrado()
-        {
-            Console.WriteLine("Que tamaño quieres que tenga? [lado]");
-
-            bool isOk1;
-            int lado;
-
-            if (isAleatorio)
-            {
-                lado = ChooseRand(20);
-                isOk1 = true;
-                Console.WriteLine($"{lado}");
-            }
-            else
-                isOk1 = int.TryParse(Console.ReadLine(), out lado);
-
-
-            if (isOk1)
-            {
-                Rectangulo cuadrado = new Cuadrado(lado, 4);
-                figuras.Add(cuadrado);
-            }
-            else
-                Console.WriteLine("Error");
-
+            Console.WriteLine("Area total: "+ area + ". Perimetro total: " +perimetro );
         }
     }
 }

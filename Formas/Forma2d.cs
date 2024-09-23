@@ -16,5 +16,13 @@ namespace Formas
         {
             return "Es una forma2D ";
         }
+        public virtual int CalcArea()
+        {
+            return 0;
+        }
+        public virtual int CalcPerimetro()
+        {
+            return 0;
+        }
     }
 }
