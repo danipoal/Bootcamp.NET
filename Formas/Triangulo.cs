@@ -22,7 +22,7 @@ namespace Formas
         }
         public override string ToString()
         {
-            return "Triangulo de " + Base + "x" + Altura +" y angulo " + Alpha + 
+            return "[Triangulo] -> de " + Base + "x" + Altura +" y angulo " + Alpha + 
                 "º con Area: " + CalcArea(Base,Altura) + "cm2 y perimetro: " + 
                 CalcPerimetro(Base,Altura, Alpha) + "cm " + base.ToString();
         }
@@ -32,9 +32,14 @@ namespace Formas
         }
         public int CalcPerimetro(int b, int a, int alpha)
         {
-            int l1 = a / (int) Math.Sin(alpha);
-            int l2 = (int) Math.Sqrt(Math.Pow(l1,2) - Math.Pow(a,2));
-            return b + l1 + l2;
+            // Convertir ángulo a radianes
+            double alphaRadians = alpha * Math.PI / 180;
+
+            // Usar la Ley de los Cosenos para calcular el tercer lado
+            double c = Math.Sqrt(a * a + b * b - 2 * a * b * Math.Cos(alphaRadians));
+
+            // Calcular el perímetro sumando los tres lados
+            return (int)(a + b + c); // Cast para convertir a int, asumiendo que quieres el resultado como entero
         }
         
 

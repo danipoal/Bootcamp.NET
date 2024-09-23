@@ -19,7 +19,7 @@ namespace Formas
         }
         public override string ToString()
         {
-            return "elipse con area: " + CalcArea(Radio1,Radio2) + "cm2 Perimetro: " + CalcPerimetro(Radio1, Radio2) + "cm de " + Radio1 + "x" + Radio2;
+            return "[Elipse] -> area: " + CalcArea(Radio1,Radio2) + "cm2 perimetro: " + CalcPerimetro(Radio1, Radio2) + "cm de " + Radio1 + "x" + Radio2;
         }
         public virtual int CalcArea(int a, int b)
         {

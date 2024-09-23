@@ -19,7 +19,9 @@ namespace Formas
         }
         public override string ToString()
         {
-            return "Rombo " +  base.ToString();
+            return "[Rombo] -> diagonales "+ Diagonal1 + "x" + Diagonal2 + 
+                " y con area:"+ CalcArea(Diagonal1,Diagonal2) + " perimetro:"+
+                CalcPerimetro(Diagonal1,Diagonal2)+ " " +  base.ToString();
         }
         public int CalcArea(int d1, int d2)
         {

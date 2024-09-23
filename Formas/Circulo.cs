@@ -15,7 +15,7 @@ namespace Formas
         }
         public override string ToString()
         {
-            return"Circulo "+  base.ToString();
+            return"[Circulo] -> "+  base.ToString();
         }
     }
 }
