@@ -8,7 +8,7 @@ namespace Hospital
 {
     internal class Empleado : Persona
     {
-        protected int IdEmpleado {  get; set; }
+        public int IdEmpleado {  get; set; }
         protected string Ocupacion {  get; set; }
         protected float Salario {  get; set; }
 

@@ -8,8 +8,8 @@ namespace Hospital
 {
     internal class Paciente : Persona
     {
-        protected int IdPaciente { get; set; }
-        protected int IdMedicoAsignado { get; set; }
+        public int IdPaciente { get; set; }
+        public int IdMedicoAsignado { get; set; }
         protected List<string> ListaDiagnosticos { get; set; }
 
         public Paciente(string nombre, int edad, string nacimiento, int idPaciente, int idMedicoAsignado) : base(nombre, edad, nacimiento)
@@ -17,7 +17,10 @@ namespace Hospital
             IdPaciente = idPaciente;
             IdMedicoAsignado = idMedicoAsignado;
             ListaDiagnosticos = new List<string>();
+    
         }
+
+
         public override string ToString()
         {
             return $"Paciente {IdPaciente}: " + base.ToString() + $"asignado al medico{IdMedicoAsignado}";

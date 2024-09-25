@@ -10,16 +10,26 @@ namespace Hospital
     {
         protected string Especialidad {  get; set; }
         protected List<Paciente> pacientes;
-        public Medico() { }
+        public Medico() 
+        {
+            Especialidad = "Cabezera";
+            pacientes = new List<Paciente>();
+        }
         public Medico(string nombre, int edad, string nacimiento, int idEmpleado, 
             float salario, string especialidad) : base(nombre,edad ,nacimiento, idEmpleado, "Medico", salario)
         {
             Especialidad = especialidad;
             //Ocupacion = "Medico";
+            pacientes = new List<Paciente>();
         }
         public override string ToString()
         {
-            return base.ToString();
+            string pacientesInfo = "";
+            if (pacientes.Count > 0)
+            {
+                pacientesInfo = "\n\t" + VerPacientes();
+            }
+            return base.ToString() + pacientesInfo ;
         }
         public void AñadirPaciente(Paciente paciente)
         {
@@ -30,7 +40,7 @@ namespace Hospital
             StringBuilder sb = new StringBuilder();
             int contador = 0;
 
-            foreach (var item in Especialidad)
+            foreach (var item in pacientes)
                 sb.Append($"[{++contador}] {item.ToString()}");
 
             return sb.ToString();
