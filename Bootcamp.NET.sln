@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardGame", "CardGame\CardGa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Formas", "Formas\Formas.csproj", "{D9EC2ED2-EBF1-4F24-902A-02051CA59B09}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hospital", "Hospital\Hospital.csproj", "{C7CE2ED5-7D23-4B90-8D6A-CF7716DD61D3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{D9EC2ED2-EBF1-4F24-902A-02051CA59B09}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9EC2ED2-EBF1-4F24-902A-02051CA59B09}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9EC2ED2-EBF1-4F24-902A-02051CA59B09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7CE2ED5-7D23-4B90-8D6A-CF7716DD61D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7CE2ED5-7D23-4B90-8D6A-CF7716DD61D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7CE2ED5-7D23-4B90-8D6A-CF7716DD61D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7CE2ED5-7D23-4B90-8D6A-CF7716DD61D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
