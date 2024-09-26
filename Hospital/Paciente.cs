@@ -11,14 +11,18 @@ namespace Hospital
         public int IdPaciente { get; set; }
         public Medico MedicoAsignado { get; set; }
         protected List<string> ListaDiagnosticos { get; set; }
+        public List<Cita> citas;
 
+        public Paciente() { }
         public Paciente(string nombre, int edad, string nacimiento, int idPaciente, Medico medicoAsignado) : base(nombre, edad, nacimiento)
         {
             IdPaciente = idPaciente;
             
             MedicoAsignado = medicoAsignado;
             ListaDiagnosticos = new List<string>();
-    
+            citas = new List<Cita>();
+
+
         }
 
 
@@ -43,6 +47,10 @@ namespace Hospital
                 stringBuilder.Append($"[{++contador}] item \n");
 
             return stringBuilder.ToString();
+        }
+        public void AñadirCita(Cita cita)
+        {
+            citas.Add(cita);
         }
     }
    

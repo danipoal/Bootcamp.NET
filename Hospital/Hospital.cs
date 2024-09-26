@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,6 +19,7 @@ namespace Hospital
 
         protected string Nombre {  get; set; }
         protected List<Persona> Personas {  get; set; }
+        protected int contadorCitas = 0;
         //TODO Cambiar Personas a sus respectivos tipos y listas para facilitar escalabilidad
 
         public Hospital() {
@@ -48,13 +51,13 @@ namespace Hospital
             Personas.Add(new Medico("Elena Nito", 47, "28/48/2828", 6, 29000, "Cirujano"));
 
 
-            Personas.Add(new Paciente("Juan", 21, "12/11/2001", 21,(Medico) Personas[0]));
-            Personas.Add(new Paciente("María", 34, "03/05/1988", 34, (Medico)Personas[0]));
-            Personas.Add(new Paciente("Carlos", 28, "15/09/1994", 28, (Medico)Personas[0]));
-            Personas.Add(new Paciente("Lucía", 45, "22/06/1977", 45, (Medico)Personas[0]));
-            Personas.Add(new Paciente("Pedro", 19, "01/12/2003", 19, (Medico)Personas[0]));
-            Personas.Add(new Paciente("Sofía", 30, "14/02/1992", 30, (Medico)Personas[0]));
-            Personas.Add(new Paciente("Elena", 25, "25/10/1997", 25, (Medico)Personas[0]));
+            Personas.Add(new Paciente("Juan", 21, "12/11/2001", 1,(Medico) Personas[0]));
+            Personas.Add(new Paciente("María", 34, "03/05/1988", 2, (Medico)Personas[0]));
+            Personas.Add(new Paciente("Carlos", 28, "15/09/1994", 3, (Medico)Personas[0]));
+            Personas.Add(new Paciente("Lucía", 45, "22/06/1977", 4, (Medico)Personas[0]));
+            Personas.Add(new Paciente("Pedro", 19, "01/12/2003", 5, (Medico)Personas[0]));
+            Personas.Add(new Paciente("Sofía", 30, "14/02/1992", 6, (Medico)Personas[0]));
+            Personas.Add(new Paciente("Elena", 25, "25/10/1997", 7, (Medico)Personas[0]));
             
             Personas.Add(new Empleado("Juana", 30, "23/23/12", 20, "Administrativa", 0));
 
@@ -67,6 +70,7 @@ namespace Hospital
                 md.AñadirPaciente(p);
             }
         }
+        //TODO funcion de find persona y que la devuelva, evitaria mucho copia pega
         public string VerPersonas(ePersonaType tipo)
         {
             StringBuilder p = new StringBuilder();
@@ -78,7 +82,7 @@ namespace Hospital
                             p.Append($"{persona.ToString()} \n");
                     break;
 
-                case ePersonaType.Empleado: //7 empleados
+                case ePersonaType.Empleado: 
                     foreach (Persona persona in Personas)
                         if (persona is Empleado)
                             p.Append($"{persona.ToString()} \n");
@@ -93,6 +97,13 @@ namespace Hospital
 
             return p.ToString();
         }
+        public string VerMedico(int id)
+        {
+            List<Medico> meds = Personas.Where(m => m is Medico).Cast<Medico>().ToList();
+            Medico med = meds.Where(m => m.IdEmpleado == id).FirstOrDefault();
+
+            return med.ToString();
+        }
         public void AñadirPersona(ePersonaType tipo)
         {
             switch (tipo)
@@ -101,18 +112,24 @@ namespace Hospital
                     string[] paramTypes0 = new string[] { "Nombre", "Edad","Fecha de nacimiento", "Id de Paciente", "idMedicoAsignado" };
                     List<string> p0 = GetParams(paramTypes0);
 
-                    Medico me = new Medico();
+                   
                     int idMedicoAsignado = int.Parse(p0[4]);
+                    
+                    //MANERA LINQ
+                    List<Medico> meds = Personas.Where(o => o is Medico).Cast<Medico>().ToList();
+                    Medico me = meds.Where(m => m.IdEmpleado == idMedicoAsignado).First();
+                    
 
-                    foreach (Persona pers in Personas)
-                        if (pers is Medico m)
-                            if (m.IdEmpleado == idMedicoAsignado)
-                                me = m;
+                    //MANERA FOREACH
+                    //Medico me = new Medico();
+                    //foreach (Persona pers in Personas)
+                    //    if (pers is Medico m)
+                    //        if (m.IdEmpleado == idMedicoAsignado)
+                    //            me = m;
 
                     Persona paciente = new Paciente(p0[0], int.Parse(p0[1]), p0[2], int.Parse(p0[3]), me);
                     Personas.Add(paciente);
 
-                    //Paciente p = (Paciente) paciente;
                     AssignarMedico((Paciente) paciente);
                     break;
                 case ePersonaType.Empleado:
@@ -132,7 +149,23 @@ namespace Hospital
                     break;  
             }
         }
+        public void EditarPersona(ePersonaType tipo, int id)
+        {
+            switch (tipo)
+            {
+                case ePersonaType.Paciente:
+                    List<Paciente> pacs = Personas.Where(p => p is Paciente).Cast<Paciente>().ToList();
+                    Paciente pac = pacs.Where(p => p.IdPaciente == id).FirstOrDefault();
+                    if (pac != null) { 
+                        Personas.Remove(pac);
 
+                        Console.WriteLine(pac.ToString() +"\nIntroduce de nuevo la información actualizada de el Paciente");
+                        AñadirPersona(ePersonaType.Paciente);
+                    }
+                    break;
+                //TODO Editar para los demas tipos
+            }
+        }
         private void AssignarMedico(Paciente paciente)
         {
             foreach (Persona pers in Personas)
@@ -151,7 +184,27 @@ namespace Hospital
                 }
             }
         }
+        public void CrearCita()
+        {
+            //Crear la cita
+            List<string> par = GetParams(new string[] { "Id Medico", "Id Paciente", "Fecha", "Lugar" });
+            bool isDate = DateTime.TryParse(par[2], out DateTime date);
+            if (isDate)
+            {
+                Cita cita = new Cita(++contadorCitas, date, par[3]);
 
+                List<Medico> meds = Personas.Where(m => m is Medico).Cast<Medico>().ToList();
+                Medico med = meds.Where(m => m.IdEmpleado ==  int.Parse(par[0])).FirstOrDefault();
+
+                List<Paciente> pacs = Personas.Where(p => p is Paciente).Cast<Paciente>().ToList();
+                Paciente pac = pacs.Where(p => p.IdPaciente == int.Parse(par[1])).FirstOrDefault();
+
+                med.AñadirCita(cita);
+                pac.AñadirCita(cita);
+
+                Console.WriteLine("Añadido: " + cita.ToString());
+            }
+        }
         public List<string> GetParams(string[] paramTypes)
         {
             List<string> parametros = new List<string>();
