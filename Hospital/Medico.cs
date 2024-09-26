@@ -40,8 +40,8 @@ namespace Hospital
             StringBuilder sb = new StringBuilder();
             int contador = 0;
 
-            foreach (var item in pacientes)
-                sb.Append($"[{++contador}] {item.ToString()}");
+            foreach (Paciente p in pacientes)
+                sb.Append($"[{++contador}] {p.ToString()}\n\t");
 
             return sb.ToString();
         }
