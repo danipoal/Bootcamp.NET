@@ -46,7 +46,7 @@ namespace Hospital
 
             foreach (Paciente p in pacientes) 
             { 
-                sb.Append($"[{++contador}] {p.ToString()}\n\t");
+                sb.Append($"[{++contador}] {p}\n\t");
 
                 if (p.citas.Count > 0)
                     foreach (Cita c in p.citas)

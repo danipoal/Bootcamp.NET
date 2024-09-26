@@ -79,18 +79,18 @@ namespace Hospital
                 case ePersonaType.Paciente:
                     foreach (Persona persona in Personas)
                         if (persona is Paciente )
-                            p.Append($"{persona.ToString()} \n");
+                            p.Append($"{persona} \n");
                     break;
 
                 case ePersonaType.Empleado: 
                     foreach (Persona persona in Personas)
                         if (persona is Empleado)
-                            p.Append($"{persona.ToString()} \n");
+                            p.Append($"{persona} \n");
                     break;
                 case ePersonaType.Medico:
                     foreach (Persona persona in Personas)
                         if (persona is Medico)
-                            p.Append($"{persona.ToString()} \n");
+                            p.Append($"{persona} \n");
                     break;
             }
 
@@ -99,10 +99,7 @@ namespace Hospital
         }
         public string VerMedico(int id)
         {
-            List<Medico> meds = Personas.Where(m => m is Medico).Cast<Medico>().ToList();
-            Medico med = meds.Where(m => m.IdEmpleado == id).FirstOrDefault();
-
-            return med.ToString();
+            return GetPersona<Medico>(id).ToString();
         }
         public void AñadirPersona(ePersonaType tipo)
         {
@@ -115,10 +112,12 @@ namespace Hospital
                    
                     int idMedicoAsignado = int.Parse(p0[4]);
                     
-                    //MANERA LINQ
-                    List<Medico> meds = Personas.Where(o => o is Medico).Cast<Medico>().ToList();
-                    Medico me = meds.Where(m => m.IdEmpleado == idMedicoAsignado).First();
-                    
+                    //MANERA LINQ 1
+                    //List<Medico> meds = Personas.Where(o => o is Medico).Cast<Medico>().ToList();
+                    //Medico me = meds.Where(m => m.Id == idMedicoAsignado).First();
+
+                    //Manera Generico con LINQ
+                    Medico me= GetPersona<Medico>(idMedicoAsignado);
 
                     //MANERA FOREACH
                     //Medico me = new Medico();
@@ -155,7 +154,7 @@ namespace Hospital
             {
                 case ePersonaType.Paciente:
                     List<Paciente> pacs = Personas.Where(p => p is Paciente).Cast<Paciente>().ToList();
-                    Paciente pac = pacs.Where(p => p.IdPaciente == id).FirstOrDefault();
+                    Paciente pac = pacs.Where(p => p.Id == id).FirstOrDefault();
                     if (pac != null) { 
                         Personas.Remove(pac);
 
@@ -173,7 +172,7 @@ namespace Hospital
                 if (pers is Medico m)
                 {
                     //Medico medico = (Medico)pers;
-                    if (m.IdEmpleado == paciente.MedicoAsignado.IdEmpleado) //TODO Cambiar, esto es SQL
+                    if (m.Id == paciente.MedicoAsignado.Id) //TODO Cambiar, esto es SQL
                     {
                         m.AñadirPaciente(paciente);
 
@@ -194,10 +193,10 @@ namespace Hospital
                 Cita cita = new Cita(++contadorCitas, date, par[3]);
 
                 List<Medico> meds = Personas.Where(m => m is Medico).Cast<Medico>().ToList();
-                Medico med = meds.Where(m => m.IdEmpleado ==  int.Parse(par[0])).FirstOrDefault();
+                Medico med = meds.Where(m => m.Id ==  int.Parse(par[0])).FirstOrDefault();
 
                 List<Paciente> pacs = Personas.Where(p => p is Paciente).Cast<Paciente>().ToList();
-                Paciente pac = pacs.Where(p => p.IdPaciente == int.Parse(par[1])).FirstOrDefault();
+                Paciente pac = pacs.Where(p => p.Id == int.Parse(par[1])).FirstOrDefault();
 
                 med.AñadirCita(cita);
                 pac.AñadirCita(cita);
@@ -218,26 +217,12 @@ namespace Hospital
 
             return parametros;
         }
-        public Persona GetPersona(ePersonaType tipo, int id)
+        public T GetPersona<T>(int id) where T : Persona
         {
-            switch (tipo)
-            {
-                case ePersonaType.Paciente:
-                    List<Paciente> pacs = Personas.Where(p => p is Paciente).Cast<Paciente>().ToList();
-                    Paciente pac = pacs.Where(p => p.IdPaciente == id).FirstOrDefault();
-                    return pac;
-                case ePersonaType.Medico: 
-                    List<Medico> meds = Personas.Where(m => m is Medico).Cast<Medico>().ToList();
-                    Medico med = meds.Where(m => m.IdEmpleado == id).FirstOrDefault();
-                    break;
-                case ePersonaType.Empleado:
-                    List<Empleado> emps = Personas.Where(e => e is Empleado).Cast<Empleado>().ToList();
-                    Empleado emp = emps.Where(e => e.IdEmpleado == id).FirstOrDefault();
-                    return emp;
-                        
-            }
-            return null;
+            List<T> personasTipoT = Personas.Where(p => p is T).Cast<T>().ToList();
+            T persona = personasTipoT.Where(p => p.Id == id).FirstOrDefault();
 
+            return persona;
         }
     }
 }
