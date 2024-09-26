@@ -13,6 +13,7 @@ namespace Hospital
         protected int Edad {  get; set; }
         protected string Nacimiento { get; set; }
 
+        //Se podria colocar una variable static aqui ID, que = 0 y que en el constructor sea ++
         public Persona() { }
 
         public Persona(string Nombre, int Edad, string Nacimiento)

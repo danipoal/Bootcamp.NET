@@ -53,7 +53,7 @@ namespace Hospital
                         Console.WriteLine(hospital.ToString());
                         break;
                     case 3:
-                        Console.WriteLine(hospital.VerPersonas(ePersonaType.Paciente));
+                        Console.WriteLine(hospital.VerAllPersonasByType(ePersonaType.Paciente));
                         break;
                     case 4:
                         Console.WriteLine("Que ID de medico quieres ver?");

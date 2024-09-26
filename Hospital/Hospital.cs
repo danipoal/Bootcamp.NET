@@ -35,8 +35,8 @@ namespace Hospital
         {
             StringBuilder sb = new StringBuilder();
             sb.Append($"Hospital {Nombre} \n");
-            sb.Append("Empleados:\n" + VerPersonas(ePersonaType.Empleado));
-            sb.Append("\nPacientes:\n" + VerPersonas(ePersonaType.Paciente));
+            sb.Append("Empleados:\n" + VerAllPersonasByType(ePersonaType.Empleado));
+            sb.Append("\nPacientes:\n" + VerAllPersonasByType(ePersonaType.Paciente));
 
             //Console.WriteLine( sb.ToString() );
             return sb.ToString();
@@ -71,7 +71,7 @@ namespace Hospital
             }
         }
         //TODO funcion de find persona y que la devuelva, evitaria mucho copia pega
-        public string VerPersonas(ePersonaType tipo)
+        public string VerAllPersonasByType(ePersonaType tipo)
         {
             StringBuilder p = new StringBuilder();
             switch (tipo)
@@ -217,6 +217,27 @@ namespace Hospital
                 
 
             return parametros;
+        }
+        public Persona GetPersona(ePersonaType tipo, int id)
+        {
+            switch (tipo)
+            {
+                case ePersonaType.Paciente:
+                    List<Paciente> pacs = Personas.Where(p => p is Paciente).Cast<Paciente>().ToList();
+                    Paciente pac = pacs.Where(p => p.IdPaciente == id).FirstOrDefault();
+                    return pac;
+                case ePersonaType.Medico: 
+                    List<Medico> meds = Personas.Where(m => m is Medico).Cast<Medico>().ToList();
+                    Medico med = meds.Where(m => m.IdEmpleado == id).FirstOrDefault();
+                    break;
+                case ePersonaType.Empleado:
+                    List<Empleado> emps = Personas.Where(e => e is Empleado).Cast<Empleado>().ToList();
+                    Empleado emp = emps.Where(e => e.IdEmpleado == id).FirstOrDefault();
+                    return emp;
+                        
+            }
+            return null;
+
         }
     }
 }

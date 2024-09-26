@@ -25,7 +25,6 @@ namespace Hospital
 
         }
 
-
         public override string ToString()
         {
             return $"Paciente {IdPaciente}: " + base.ToString() + $" asignado al medico {MedicoAsignado.IdEmpleado}";

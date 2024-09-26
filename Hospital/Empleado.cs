@@ -12,7 +12,6 @@ namespace Hospital
         protected string Ocupacion {  get; set; }
         protected float Salario {  get; set; }
 
-
         public Empleado() { }
         public Empleado(string nombre, int edad, string nacimiento, int idTrabajador, string ocupacion, float salario) : base(nombre, edad, nacimiento)
         {
