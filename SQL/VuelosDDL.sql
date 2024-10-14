@@ -1,0 +1,131 @@
+USE DaniVuelos;
+
+--Orden inverso a la creación
+
+DROP TABLE IF EXISTS Vuelo_TipoAsiento;
+DROP TABLE IF EXISTS TipoAsiento;
+DROP TABLE IF EXISTS Reserva;
+DROP TABLE IF EXISTS Auxiliar_Vuelo;
+DROP TABLE IF EXISTS Vuelo;
+DROP TABLE IF EXISTS Auxiliar;
+DROP TABLE IF EXISTS CategoriaAux;
+DROP TABLE IF EXISTS Piloto;
+DROP TABLE IF EXISTS TipoServicio;
+DROP TABLE IF EXISTS Trayecto;
+DROP TABLE IF EXISTS Aeropuerto;
+DROP TABLE IF EXISTS Avion;
+DROP TABLE IF EXISTS ModeloAvion;
+
+--CREACION DE TABLAS
+CREATE TABLE ModeloAvion(
+	IdModelo INT PRIMARY KEY IDENTITY(1,1),
+	NombreModelo varchar(50) NOT NULL UNIQUE,
+	Diametro INT
+);
+
+CREATE TABLE Avion(
+	IdAvion INT PRIMARY KEY IDENTITY(1,1),
+	NombreAvion VARCHAR(50) NOT NULL,
+	Capacidad INT,
+	FechaConstruccion DATE,
+	FkIdModelo INT,
+	CONSTRAINT FK_MODELO_AVION FOREIGN KEY (FkIdModelo) REFERENCES ModeloAvion(IdModelo)
+);
+
+CREATE TABLE Aeropuerto(
+	IdAeropuerto INT PRIMARY KEY IDENTITY(1,1),
+	Lugar VARCHAR(50) NOT NULL,
+	Coordenadas VARCHAR(50)
+);
+
+CREATE TABLE Trayecto(
+	IdTrayecto INT PRIMARY KEY IDENTITY(1,1),
+	Duracion INT,
+	Hora DECIMAL(5,2),
+	FkIdOrigen INT,
+	FkIdDestino INT,
+	CONSTRAINT FK_ORIGEN_AEROPUERTO FOREIGN KEY (FkIdOrigen) REFERENCES Aeropuerto(IdAeropuerto),
+	CONSTRAINT FK_DESTINO_AEROPUERTO FOREIGN KEY (FkIdDestino) REFERENCES Aeropuerto(IdAeropuerto)
+);
+
+CREATE TABLE TipoServicio(
+	IdTipoServicio INT PRIMARY KEY IDENTITY(1,1),
+	IsNational BIT,
+	IsContinental BIT,
+	IsInterContinental BIT
+);
+
+CREATE TABLE Piloto(
+	IdPiloto INT PRIMARY KEY IDENTITY(1,1),
+	Nif CHAR(9),
+	Nombre VARCHAR(50),
+	Antiguedad INT,
+	FkIdTipoServicio INT,
+	CONSTRAINT FK_PILOTO_SERVICIO FOREIGN KEY (FkIdTipoServicio) REFERENCES TipoServicio(IdTipoServicio)
+);
+
+
+
+CREATE TABLE CategoriaAux(
+	IdCategoriaAux INT PRIMARY KEY IDENTITY(1,1),
+	Categoria VARCHAR(50)
+);
+
+CREATE TABLE Auxiliar(
+	IdAux INT PRIMARY KEY IDENTITY(1,1),
+	NIF CHAR(9),
+	Nombre VARCHAR(50),
+	FkIdCategoria INT,
+	CONSTRAINT FK_AUXILIAR_CATEGORIA FOREIGN KEY (FkIdCategoria) REFERENCES CategoriaAux(IdCategoriaAux)
+);
+
+
+
+CREATE TABLE Vuelo(
+	IdVuelo INT PRIMARY KEY IDENTITY(1,1),
+	Fecha DATE,
+	Duracion INT,
+	FkIdAvion INT,
+	FkIdTrayecto INT,
+	FkIdPiloto INT,
+	FkIdCopiloto INT,
+	CONSTRAINT FK_AVION_VUELO FOREIGN KEY (FkIdAvion) REFERENCES Avion(IdAvion),
+	CONSTRAINT FK_TRAYECTO_VUELO FOREIGN KEY (FkIdTrayecto) REFERENCES Trayecto(IdTrayecto),
+	CONSTRAINT FK_PILOTO_VUELO FOREIGN KEY (FkIdPiloto) REFERENCES Piloto(IdPiloto),
+	CONSTRAINT FK_COPILOTO_VUELO FOREIGN KEY (FkIdCoPiloto) REFERENCES Piloto(IdPiloto)
+);
+
+CREATE TABLE Auxiliar_Vuelo(
+	FkIdVuelo INT,
+	FkIdAuxiliar INT,
+	CONSTRAINT FK_AUX_VUELO FOREIGN KEY (FkIdAuxiliar) REFERENCES Auxiliar(IdAux),
+	CONSTRAINT FK_AUX_VUELO_aux FOREIGN KEY (FkIdVuelo) REFERENCES Vuelo(IdVuelo),
+	CONSTRAINT PK_ID_AUX_VUELO PRIMARY KEY (FkIdVuelo, FkIdAuxiliar)
+);
+
+CREATE TABLE Reserva(
+	IdReserva INT PRIMARY KEY IDENTITY(1,1),
+	FechaReserva DATE,
+	NombrePasajero VARCHAR(50),
+	NifPasajero CHAR(9),
+	Fila INT,
+	Columna INT,
+	FkIdVuelo INT,
+	CONSTRAINT FK_VUELO_RESERVA FOREIGN KEY (FkIdVuelo) REFERENCES Vuelo(IdVuelo),
+);
+
+CREATE TABLE TipoAsiento(
+	IdTipoAsiento INT PRIMARY KEY IDENTITY(1,1),
+	NombreTipo VARCHAR(50)
+);
+
+CREATE TABLE Vuelo_TipoAsiento(
+	IdVuelo_tipoAsiento INT PRIMARY KEY IDENTITY(1,1),
+	Precio DECIMAL(8,2),
+	FilaInicial INT,
+	FilaFinal INT,
+	FkIdVuelo INT,
+	FkIdTipoAsiento INT,
+	CONSTRAINT FK_VUELO_TIPOASIENTO FOREIGN KEY (FkIdVuelo) REFERENCES Vuelo(IdVuelo),
+	CONSTRAINT FK_VUELO_TIPOASIENTO_asiento FOREIGN KEY (FkIdTipoAsiento) REFERENCES TipoAsiento(IdTipoAsiento),
+);
