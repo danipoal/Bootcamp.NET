@@ -91,6 +91,7 @@ HAVING COUNT(*) > 3
 
 
 
+
 --n empleados en depts que empiecen por S
 SELECT d.department_name, COUNT(*) AS 'S' 
 FROM employees e
@@ -104,7 +105,7 @@ GROUP BY d.department_id, d.department_name
 --De la bd vuelos
 USE DaniVuelos;
 
---Total asientos ocupados en cada clase para un vuelo
+--Total asientos ocupados en cada clase para un vuelo     ERROR, no es correcto
 SELECT ta.NombreTipo, COUNT(*) AS 'Asientos ocupados'
 FROM Reserva r
 	INNER JOIN Vuelo v
@@ -113,7 +114,7 @@ FROM Reserva r
 		ON v.IdVuelo = vta.FkIdVuelo
 	INNER JOIN TipoAsiento ta
 		ON vta.FkIdTipoAsiento = ta.IdTipoAsiento
-WHERE v.IdVuelo = 3
+WHERE v.IdVuelo = 6
 GROUP BY vta.FkIdTipoAsiento, ta.NombreTipo
 
 
@@ -126,4 +127,39 @@ FROM Vuelo v
 		ON t.FkIdDestino = a.IdAeropuerto
 GROUP BY t.FkIdDestino, a.Lugar
 
+
+--num pilotos que han sido copilotos
+
+SELECT COUNT(*) AS NumeroPilotos
+FROM (
+	SELECT p.Nombre
+	FROM Piloto p
+	INNER JOIN Vuelo v
+	ON p.IdPiloto = v.FkIdPiloto
+INTERSECT
+	SELECT p.Nombre
+	FROM Piloto p
+	INNER JOIN Vuelo v
+		ON p.IdPiloto = v.FkIdCopiloto
+) as Numeropilotos
+	
+	--Otra manera:
+SELECT COUNT(DISTINCT p.IdPiloto)
+	FROM Piloto p
+		INNER JOIN Vuelo v
+	ON p.IdPiloto = v.FkIdPiloto
+		INNER JOIN Vuelo v2
+		ON p.IdPiloto = v2.FkIdCopiloto;
+	--Otra manera
+
+-- FUNCIONES Y PROCEDIMIENTOS
+CREATE FUNCTION FechaHoy()
+RETURNS DATE
+BEGIN 
+	
+	RETURN GETDATE();
+
+END
+
+SELECT dbo.FechaHoy();
 
