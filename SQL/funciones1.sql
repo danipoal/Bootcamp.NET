@@ -34,8 +34,46 @@ BEGIN
 		SELECT @NumEmps= COUNT(*) FROM employees e
 			INNER JOIN departments d
 				ON d.department_id = e.department_id
+	
 	--Set @NumEmps = (SELECT COUNT(*) FROM employees)
-	--Segunda manera
+
+	--Segunda manera 
+	SELECT COUNT(*) FROM employees e
+		INNER JOIN departments d
+			ON d.department_id = e.department_id
+	WHERE @dept IS NULL OR d.department_name LIKE '%' + @dept + '%' ; --Comprueba que no sea null y devuelve todo, sino aplica el like
+																	  --Un where es un if, si se cumple el filtro, devuelve lo que se cumple, else no
+
+	--Tercera subquery [Con subquerry]
+		SELECT COUNT(*) FROM employees e
+	WHERE (@dept IS NULL 
+		OR e.department_id IN 
+								(
+								SELECT d.department_id 
+								FROM departments d 
+								WHERE d.department_name = @dept
+								);
+							
+	--Cuarta manera [CASE WHEN]
+
+		SELECT COUNT(*) FROM employees e
+		INNER JOIN departments d
+			ON d.department_id = e.department_id
+		WHERE @dept = CASE 
+						WHEN @dept IS NOT NULL
+						THEN d.department_name
+						ELSE NULL
+					END
+	--Quinta manera [case de primeras (subconsultas)]
+
+	SET @NumEmps = CASE
+						WHEN @dept IS NULL
+							THEN	(SELECT COUNT(*) FROM employees)
+							ELSE	(SELECT COUNT(*) FROM employees e
+										INNER JOIN departments d
+											ON d.department_id = e.department_id
+									WHERE d.department_name LIKE '%' + @dept + '%' )
+							END;
 
 	RETURN @NumEMps
 
