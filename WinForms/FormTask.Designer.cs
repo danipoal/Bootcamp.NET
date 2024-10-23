@@ -67,7 +67,6 @@ namespace WinForms
             this.label1.Size = new System.Drawing.Size(38, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "Title";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -101,7 +100,6 @@ namespace WinForms
             this.label3.Size = new System.Drawing.Size(43, 20);
             this.label3.TabIndex = 4;
             this.label3.Text = "Type";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label4
             // 
@@ -185,7 +183,6 @@ namespace WinForms
             this.richTextBox1.Size = new System.Drawing.Size(633, 112);
             this.richTextBox1.TabIndex = 13;
             this.richTextBox1.Text = "";
-            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
             // label7
             // 
@@ -213,7 +210,6 @@ namespace WinForms
             this.label9.Size = new System.Drawing.Size(133, 20);
             this.label9.TabIndex = 17;
             this.label9.Text = "Percent complete";
-            this.label9.Click += new System.EventHandler(this.label9_Click);
             // 
             // label10
             // 
@@ -223,7 +219,6 @@ namespace WinForms
             this.label10.Size = new System.Drawing.Size(56, 20);
             this.label10.TabIndex = 16;
             this.label10.Text = "Status";
-            this.label10.Click += new System.EventHandler(this.label10_Click);
             // 
             // StatusComboBox
             // 
@@ -424,7 +419,6 @@ namespace WinForms
             this.Controls.Add(this.label1);
             this.Name = "FormTask";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

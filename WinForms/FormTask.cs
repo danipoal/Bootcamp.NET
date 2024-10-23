@@ -16,32 +16,6 @@ namespace WinForms
         {
             InitializeComponent();
         }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label10_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label9_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             bool isAllSelected = true;
@@ -58,7 +32,6 @@ namespace WinForms
 
             if (isAllSelected)
             {
-                label1_Click(sender, e);
                 MessageBox.Show("Información enviada");
             }
             else
@@ -68,11 +41,6 @@ namespace WinForms
         }
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e) {
             dateTimePicker1.Format = DateTimePickerFormat.Short;
-        }
-
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }
