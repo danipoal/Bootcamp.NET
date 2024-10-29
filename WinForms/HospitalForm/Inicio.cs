@@ -25,10 +25,7 @@ namespace HospitalForm
             {
                 HospCombo.Items.Add(hospital);
                 HospCombo.DisplayMember = "Nombre"; // Mostrar la propiedad nombre en el combo
-
             }
-               
-
         }
 
         private void IniciarButton_Click(object sender, EventArgs e)

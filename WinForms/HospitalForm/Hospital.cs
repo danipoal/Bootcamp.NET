@@ -34,8 +34,8 @@ namespace HospitalForm
         {
             StringBuilder sb = new StringBuilder();
             sb.Append($"Hospital {Nombre} \n");
-            sb.Append("Empleados:\n" + VerAllPersonasByType(ePersonaType.Empleado));
-            sb.Append("\nPacientes:\n" + VerAllPersonasByType(ePersonaType.Paciente));
+            sb.Append("Empleados:\n" + VerAllPersonasByTypeStr(ePersonaType.Empleado));
+            sb.Append("\nPacientes:\n" + VerAllPersonasByTypeStr(ePersonaType.Paciente));
 
             //Console.WriteLine( sb.ToString() );
             return sb.ToString();
@@ -70,8 +70,9 @@ namespace HospitalForm
             }
         }
         //TODO funcion de find persona y que la devuelva, evitaria mucho copia pega
-        public string VerAllPersonasByType(ePersonaType tipo)
+        public string VerAllPersonasByTypeStr(ePersonaType tipo)
         {
+            
             StringBuilder p = new StringBuilder();
             switch (tipo)
             {
@@ -95,6 +96,11 @@ namespace HospitalForm
 
 
             return p.ToString();
+        }
+        public List<T> GetTypeList<T>() where T : Persona
+        {
+            // Usamos LINQ para filtrar y convertir la lista original a la lista del tipo específico T
+            return Personas.OfType<T>().ToList();
         }
         public string VerMedico(int id)
         {
@@ -223,6 +229,17 @@ namespace HospitalForm
             T persona = personasTipoT.Where(p => p.Id == id).FirstOrDefault();
 
             return persona;
+        }
+        public List<Cita> GetCitas()
+        {
+            List<Cita> lista = new List<Cita>();
+            foreach (Medico medico in Personas.OfType<Medico>())
+            {    
+                List<Cita> tmpList =  medico.GetCitas();
+                foreach (Cita cita in tmpList)
+                    lista.Add(cita);
+            }
+            return lista;
         }
     }
 }

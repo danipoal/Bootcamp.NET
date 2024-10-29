@@ -15,9 +15,27 @@ namespace HospitalForm
         public Hospital hospital;
         public MenuPrincipal(Hospital hospitalSeleccionado)
         {
+            
             InitializeComponent();
             hospital = hospitalSeleccionado;
+            hospital.AñadirDefault();
+            InfoView info = new InfoView(hospital);
+            MostrarUserControlEnPanel(info);
         }
+        private void LimpiarPanel(Control contenedor)
+        {
+            for (int i = contenedor.Controls.Count - 1; i >= 0; i--)
+            {
+                Control control = contenedor.Controls[i];
+                if (control is Panel || control is GroupBox || control.HasChildren)
+                {
+                    LimpiarPanel(control);  // Llamada recursiva para limpiar subcontenedores
+                }
+                contenedor.Controls.Remove(control);
+                control.Dispose();  // Esto elimina el control y libera sus recursos
+            }
+        }
+
         private void MostrarUserControlEnPanel(UserControl uc)
         {
             // Asegurarse de que el panel esté limpio antes de cargar un nuevo UserControl
@@ -31,9 +49,31 @@ namespace HospitalForm
         }
         private void medicosToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            UserControl1 user = new UserControl1(hospital);
+            PersonList user = new PersonList(hospital, ePersonaType.Medico);
+            LimpiarPanel(panelContenedor);
+            MostrarUserControlEnPanel(user);
+
+        }
+
+        private void trabajadoresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PersonList user = new PersonList(hospital, ePersonaType.Empleado);
+            LimpiarPanel(panelContenedor);
             MostrarUserControlEnPanel(user);
         }
 
+        private void pacientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PersonList user = new PersonList(hospital, ePersonaType.Paciente);
+            LimpiarPanel(panelContenedor);
+            MostrarUserControlEnPanel(user);
+        }
+
+        private void informacionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            InfoView info = new InfoView(hospital);
+            LimpiarPanel(panelContenedor);
+            MostrarUserControlEnPanel(info);
+        }
     }
 }

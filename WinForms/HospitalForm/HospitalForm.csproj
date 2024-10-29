@@ -50,6 +50,12 @@
     <Compile Include="Cita.cs" />
     <Compile Include="Empleado.cs" />
     <Compile Include="Hospital.cs" />
+    <Compile Include="InfoView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InfoView.Designer.cs">
+      <DependentUpon>InfoView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Inicio.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,12 +73,15 @@
     <Compile Include="Persona.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserControl1.cs">
+    <Compile Include="PersonList.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl1.Designer.cs">
-      <DependentUpon>UserControl1.cs</DependentUpon>
+    <Compile Include="PersonList.Designer.cs">
+      <DependentUpon>PersonList.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="InfoView.resx">
+      <DependentUpon>InfoView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Inicio.resx">
       <DependentUpon>Inicio.cs</DependentUpon>
     </EmbeddedResource>
@@ -88,8 +97,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="UserControl1.resx">
-      <DependentUpon>UserControl1.cs</DependentUpon>
+    <EmbeddedResource Include="PersonList.resx">
+      <DependentUpon>PersonList.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\DataSources\Cita.datasource" />
     <None Include="Properties\DataSources\Empleado.datasource" />

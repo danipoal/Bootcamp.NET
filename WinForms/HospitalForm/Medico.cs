@@ -8,7 +8,7 @@ namespace HospitalForm
 {
     public class Medico : Empleado
     {
-        protected string Especialidad { get; set; }
+        public string Especialidad { get; set; }
         protected List<Paciente> pacientes;
         protected List<Cita> citas;
         public Medico()
@@ -28,12 +28,7 @@ namespace HospitalForm
         }
         public override string ToString()
         {
-            string pacientesInfo = "";
-            if (pacientes.Count > 0)
-            {
-                pacientesInfo = "\n\t" + VerPacientes();
-            }
-            return base.ToString() + pacientesInfo;
+            return Nombre;
         }
         public void AñadirPaciente(Paciente paciente)
         {
@@ -61,5 +56,6 @@ namespace HospitalForm
         {
             citas.Add(cita);
         }
+        public List<Cita> GetCitas() { return citas; }
     }
 }

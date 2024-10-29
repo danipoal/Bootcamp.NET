@@ -8,10 +8,10 @@ namespace HospitalForm
 {
     public class Persona
     {
-        protected string Nombre { get; set; }
+        internal int Id { get; set; }
+        public string Nombre { get; set; }
         protected int Edad { get; set; }
         protected string Nacimiento { get; set; }
-        public int Id { get; set; }
 
         //Se podria colocar una variable static aqui ID, que = 0 y que en el constructor sea ++
         public Persona() { }
