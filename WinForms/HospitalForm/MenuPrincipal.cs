@@ -19,8 +19,11 @@ namespace HospitalForm
             InitializeComponent();
             hospital = hospitalSeleccionado;
             hospital.AñadirDefault();
-            InfoView info = new InfoView(hospital);
-            MostrarUserControlEnPanel(info);
+            Welcome loadingControl = new Welcome();
+            loadingControl.LoadCompleted += LoadingControl_LoadCompleted;
+            panelContenedor.Controls.Add(loadingControl);
+            loadingControl.Dock = DockStyle.Fill;
+            loadingControl.StartLoading();
         }
         private void LimpiarPanel(Control contenedor)
         {
@@ -91,6 +94,14 @@ namespace HospitalForm
             Inicio ini = new Inicio();
             ini.Show();
             this.Hide(); // Opcional: Ocultar el formulario actual
+        }
+        private void LoadingControl_LoadCompleted(object sender, EventArgs e)
+        {
+            // Cambiar el contenido del panel
+            panelContenedor.Controls.Clear();
+            InfoView newContent = new InfoView(hospital);  // El UserControl que quieres mostrar
+            panelContenedor.Controls.Add(newContent);
+            newContent.Dock = DockStyle.Fill;
         }
     }
 }

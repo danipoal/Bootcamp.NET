@@ -53,7 +53,6 @@ namespace HospitalForm
         public int MedicoAsignadoId
         {
             get { return MedicoAsignado.Id; }
-            set { MedicoAsignado = listaMedicos.FirstOrDefault(m => m.Id == value); }
         }
     }
 }

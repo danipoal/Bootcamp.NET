@@ -138,7 +138,7 @@
             // 
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.tableLayoutPanel1);
-            this.panel1.Location = new System.Drawing.Point(38, 180);
+            this.panel1.Location = new System.Drawing.Point(155, 204);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(200, 167);
             this.panel1.TabIndex = 5;
@@ -157,7 +157,7 @@
             // 
             this.tituloText.AutoSize = true;
             this.tituloText.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloText.Location = new System.Drawing.Point(311, 29);
+            this.tituloText.Location = new System.Drawing.Point(371, 32);
             this.tituloText.Name = "tituloText";
             this.tituloText.Size = new System.Drawing.Size(318, 46);
             this.tituloText.TabIndex = 4;
@@ -187,7 +187,7 @@
             // 
             this.panel2.Controls.Add(this.medName);
             this.panel2.Controls.Add(this.Medtitulo);
-            this.panel2.Location = new System.Drawing.Point(402, 180);
+            this.panel2.Location = new System.Drawing.Point(712, 184);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(208, 218);
             this.panel2.TabIndex = 9;
@@ -203,7 +203,7 @@
             this.tableLayoutPanel2.Controls.Add(this.label8, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.label9, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.countMedPacientes, 1, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(402, 263);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(712, 267);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 3;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
@@ -281,7 +281,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.tituloText);
             this.Name = "InfoView";
-            this.Size = new System.Drawing.Size(954, 517);
+            this.Size = new System.Drawing.Size(1037, 517);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.panel1.ResumeLayout(false);

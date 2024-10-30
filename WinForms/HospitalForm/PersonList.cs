@@ -46,6 +46,13 @@ namespace HospitalForm
             }
             else if (type == ePersonaType.Paciente)
             {
+                foreach (var paciente in listaPacientes)
+                {
+                    if (paciente.MedicoAsignado != null)
+                    {
+                        paciente.MedicoAsignado = listaMedicos.FirstOrDefault(m => m.Id == paciente.MedicoAsignado.Id);
+                    }
+                }
                 dataGridView1.DataSource = listaPacientes;
                 //Columna de Medico asignable no editable (es un objeto)
 

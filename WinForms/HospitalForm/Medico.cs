@@ -12,7 +12,6 @@ namespace HospitalForm
         protected List<Paciente> pacientes;
         protected List<Cita> citas;
         public Medico Self => this;
-
         public Medico()
         {
             Especialidad = "Cabezera";
