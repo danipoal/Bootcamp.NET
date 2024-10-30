@@ -8,7 +8,7 @@ namespace HospitalForm
 {
     public class Empleado : Persona
     {
-        protected string Ocupacion { get; set; }
+        public string Ocupacion { get; set; }
         public float Salario { get; set; }
 
         public Empleado() { }

@@ -11,6 +11,8 @@ namespace HospitalForm
         public string Especialidad { get; set; }
         protected List<Paciente> pacientes;
         protected List<Cita> citas;
+        public Medico Self => this;
+
         public Medico()
         {
             Especialidad = "Cabezera";
@@ -57,5 +59,6 @@ namespace HospitalForm
             citas.Add(cita);
         }
         public List<Cita> GetCitas() { return citas; }
+
     }
 }
