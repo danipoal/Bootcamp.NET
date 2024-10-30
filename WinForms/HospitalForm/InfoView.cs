@@ -15,9 +15,9 @@ namespace HospitalForm
         public InfoView(Hospital hospital)
         {
             InitializeComponent();
+            tituloText.Text = hospital.Nombre;
             UpdateCountInfo(hospital);
         }
-
         public void UpdateCountInfo(Hospital hospital)
         {
             int countMed = hospital.GetTypeList<Medico>().Count;
@@ -28,8 +28,6 @@ namespace HospitalForm
             countMedicos.Text = countMed + "";
             countPacientes.Text = countPac + "";
             countCitas.Text = countCit + "";
-
-
         }
     }
 }

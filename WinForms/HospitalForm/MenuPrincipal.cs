@@ -27,14 +27,24 @@ namespace HospitalForm
             for (int i = contenedor.Controls.Count - 1; i >= 0; i--)
             {
                 Control control = contenedor.Controls[i];
-                if (control is Panel || control is GroupBox || control.HasChildren)
+
+                // Llama recursivamente solo si el control tiene hijos y es un tipo de contenedor
+                if (control.HasChildren && (control is Panel || control is GroupBox))
                 {
-                    LimpiarPanel(control);  // Llamada recursiva para limpiar subcontenedores
+                    LimpiarPanel(control);
                 }
+
+                // Elimina el control de la colección
                 contenedor.Controls.Remove(control);
-                control.Dispose();  // Esto elimina el control y libera sus recursos
+
+                // Dispose solo si es seguro hacerlo
+                if (!(control is DataGridView)) // Evitar disposición explícita de controles complejos que gestionan sus propios recursos
+                {
+                    control.Dispose();
+                }
             }
         }
+
 
         private void MostrarUserControlEnPanel(UserControl uc)
         {
@@ -74,6 +84,13 @@ namespace HospitalForm
             InfoView info = new InfoView(hospital);
             LimpiarPanel(panelContenedor);
             MostrarUserControlEnPanel(info);
+        }
+
+        private void abrirHospitalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Inicio ini = new Inicio();
+            ini.Show();
+            this.Hide(); // Opcional: Ocultar el formulario actual
         }
     }
 }

@@ -32,6 +32,7 @@
             this.hospitalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nuevoHospitalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.abrirHospitalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.informacionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cerrarSesiónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.medicosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.medicosToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,7 +43,6 @@
             this.verCitasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelContenedor = new System.Windows.Forms.Panel();
-            this.informacionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -82,6 +82,14 @@
             this.abrirHospitalToolStripMenuItem.Name = "abrirHospitalToolStripMenuItem";
             this.abrirHospitalToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.abrirHospitalToolStripMenuItem.Text = "Abrir";
+            this.abrirHospitalToolStripMenuItem.Click += new System.EventHandler(this.abrirHospitalToolStripMenuItem_Click);
+            // 
+            // informacionToolStripMenuItem
+            // 
+            this.informacionToolStripMenuItem.Name = "informacionToolStripMenuItem";
+            this.informacionToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.informacionToolStripMenuItem.Text = "Informacion";
+            this.informacionToolStripMenuItem.Click += new System.EventHandler(this.informacionToolStripMenuItem_Click);
             // 
             // cerrarSesiónToolStripMenuItem
             // 
@@ -154,13 +162,6 @@
             this.panelContenedor.Name = "panelContenedor";
             this.panelContenedor.Size = new System.Drawing.Size(1023, 472);
             this.panelContenedor.TabIndex = 1;
-            // 
-            // informacionToolStripMenuItem
-            // 
-            this.informacionToolStripMenuItem.Name = "informacionToolStripMenuItem";
-            this.informacionToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
-            this.informacionToolStripMenuItem.Text = "Informacion";
-            this.informacionToolStripMenuItem.Click += new System.EventHandler(this.informacionToolStripMenuItem_Click);
             // 
             // MenuPrincipal
             // 

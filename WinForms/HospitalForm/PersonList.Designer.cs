@@ -36,28 +36,34 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(23, 106);
+            this.dataGridView1.Location = new System.Drawing.Point(25, 34);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.Size = new System.Drawing.Size(643, 373);
+            this.dataGridView1.Size = new System.Drawing.Size(623, 392);
             this.dataGridView1.TabIndex = 0;
             // 
             // addButton
             // 
+            this.addButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.addButton.Location = new System.Drawing.Point(729, 235);
+            this.addButton.Location = new System.Drawing.Point(722, 105);
             this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(127, 56);
+            this.addButton.Size = new System.Drawing.Size(127, 60);
             this.addButton.TabIndex = 1;
             this.addButton.Text = "Añadir";
             this.addButton.UseVisualStyleBackColor = true;
             // 
             // deleteButton
             // 
+            this.deleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.deleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deleteButton.Location = new System.Drawing.Point(729, 333);
+            this.deleteButton.Location = new System.Drawing.Point(721, 224);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(127, 56);
             this.deleteButton.TabIndex = 2;
@@ -72,7 +78,7 @@
             this.Controls.Add(this.addButton);
             this.Controls.Add(this.dataGridView1);
             this.Name = "PersonList";
-            this.Size = new System.Drawing.Size(924, 537);
+            this.Size = new System.Drawing.Size(904, 556);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 

@@ -29,9 +29,18 @@ namespace HospitalForm
         public static void Iniciar()
             //TODO Logica a modificar NO writelines ni Readlines
         {
-            Hospital juan23 = new Hospital();
+            Hospital juan23 = new Hospital("Joan 23");
+            Hospital vallEbron = new Hospital("Vall d'Ebron");
+            Hospital clinic = new Hospital("Hospital CLinic");
+
+
             juan23.AñadirDefault();
+            vallEbron.AñadirDefault();
+            clinic.AñadirDefault();
+
             Hospitales.Add(juan23);
+            Hospitales.Add((vallEbron));
+            Hospitales.Add (clinic); 
             
             
         }
