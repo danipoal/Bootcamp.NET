@@ -75,13 +75,13 @@ namespace Empleados
 
         private void insertBtn_Click(object sender, EventArgs e)
         {
-            InsertJob insertView = new InsertJob();
+            InsertJob insertView = new InsertJob(Connection);
             insertView.Show();
         }
 
         private void verBtn_Click(object sender, EventArgs e)
         {
-            VerJobs verJobsView = new VerJobs();
+            VerJobs verJobsView = new VerJobs(Connection);
             verJobsView.Show();
         }
     }

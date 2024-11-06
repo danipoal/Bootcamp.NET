@@ -58,6 +58,7 @@
     <Compile Include="InsertJob.Designer.cs">
       <DependentUpon>InsertJob.cs</DependentUpon>
     </Compile>
+    <Compile Include="Job.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VerJobs.cs">
