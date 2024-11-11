@@ -1,0 +1,17 @@
+.photo{
+    float: right;
+}
+h1{
+    text-align: center;
+}
+.studies{
+    float: left;
+    width: 45%;
+}
+.quals{
+    float: right;
+    width: 45%;
+}
+.last-div{
+    clear: both;
+}
