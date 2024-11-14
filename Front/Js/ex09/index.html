@@ -50,39 +50,62 @@
         <div id="first" class="ejercicio-container">
             <h3>1</h3>
             <form class="color-form first-f">
-                <button onclick ="changeColor('blue', 'body')" type="button">blue</button>
-                <button onclick ="changeColor('green', 'body')" type="button">green</button>
-                <button onclick ="changeColor('yellow', 'body')" type="button">yellow</button>
-                <button onclick ="changeColor('brown', 'body')" type="button">brown</button>
-                <button onclick ="changeColor('white', 'body')" type="button">reset</button>
+                <button onclick ="changeColorBody('blue')" type="button">blue</button>
+                <button onclick ="changeColorBody('green')" type="button">green</button>
+                <button onclick ="changeColorBody('yellow')" type="button">yellow</button>
+                <button onclick ="changeColorBody('brown')" type="button">brown</button>
+                <button onclick ="changeColorBody('white')" type="button">reset</button>
             </form>
         </div>
         <div id="second" class="ejercicio-container">
             <h3>2</h3>
             <section class="a">
             <form class="color-form second-f">
-                <button onclick ="changeColor('blue', '#second')" type="button">blue</button>
-                <button onclick ="changeColor('green', '#second')" type="button">green</button>
-                <button onclick ="changeColor('yellow', '#second')" type="button">yellow</button>
-                <button onclick ="changeColor('brown', '#second')" type="button">brown</button>
-                <button onclick ="changeColor('white', '#second')" type="button">reset</button>
+                <button onclick ="changeColor('blue')" type="button">blue</button>
+                <button onclick ="changeColor('green')" type="button">green</button>
+                <button onclick ="changeColor('yellow')" type="button">yellow</button>
+                <button onclick ="changeColor('brown')" type="button">brown</button>
+                <button onclick ="changeColor('white')" type="button">reset</button>
             </form>
                 <div class="radio-btns">
-                    <input type="radio">Document</input>
-                    <input type="radio">Container 1</input>
-                    <input type="radio">Container 2</input>
+                    <input type="radio" name="target" value="body" checked>Document</input>
+                    <input type="radio" name="target" value="#first">Container 1</input>
+                    <input type="radio" name="target" value="#second">Container 2</input>
                 </div>
             </section>
 
         </div>
-        <div class="ejercicio-container"></div>
+        <div class="ejercicio-container">
+            <h3>3</h3>
+                <p>Dias vividos: <span class="vivido">0</span></p>
+                <button type="button" onclick="vividoAlert()">Programa alerts</button>
+                <br>
+                <button type="button" onclick="vividoWrite()">Programa write</button>
+
+        </div>
         <div class="ejercicio-container"></div>
         <div class="ejercicio-container"></div>
     </main>
     <script>
-        function changeColor(col, type) {
-            let scope = document.querySelector(type);
+        function changeColorBody(col) {
+            let scope = document.querySelector("body");
             scope.style.backgroundColor = col;
+        }
+        function changeColor(col) {
+            let scope;
+            const checkedRadio = document.querySelector('input:checked');
+
+            scope = document.querySelector(checkedRadio.value);
+            scope.style.backgroundColor = col;
+        }
+        function vividoAlert() {
+            let nombre;
+            let edad;
+            let res = document.getElementById("vivido");
+
+            nombre = prompt("Como te llamas?");
+            edad = prompt("Cuantos años tienes?");
+            res.textContent = nombre + (edad*365);
         }
     </script>
 </body>
