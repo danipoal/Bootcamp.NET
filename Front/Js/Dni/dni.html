@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DNI calculator</title>
+    <style>
+        main{
+            width: 30%;
+            height: 200px;
+            margin: 0 auto;
+            border: 2px solid gray;
+            background-color: azure;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+        form{
+            height: 70px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .inputs-container{
+            display: flex;
+            justify-content: space-around;
+        }
+        input{
+            width: 40%;
+        }
+        button{
+            width: fit-content;
+            align-self: center;
+            background-color: aqua;
+            border-radius: 10px;
+            scale: 1.2;
+        }
+    </style>
+    
+</head>
+<body>
+    <main>
+        <div>
+            <p>Verificador de Documento de Identidad</p>
+            <p id="resultado"> </p>
+        </div>
+    <form id="form" class="main">
+                <div class="inputs-container">
+                <input type="text" name="dni" id="dni" pattern="[0-9]{8}[A-Z]{1}" maxlength="9" minlength="9" required>
+            </div>
+            <button type="submit" id="verificar">Verificar</button>
+    </form>
+
+    </main>
+    <script>
+        let resLabel = document.getElementById("resultado");
+        let formDni = document.getElementById("form");
+
+        function verifyDNI(dniText) {
+            let num;
+            let letter;
+            let base;
+
+            base = "TRWAGMYFPDXBNJZSQVHLCKE";
+            num = dniText.substring(0, 8);
+            letter = dniText.substring(8, 9);
+            if (letter == base.charAt(num % 23)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        formDni.addEventListener('submit', function checkDni() {
+            event.preventDefault(); // Esto detiene el envío normal del formulario
+
+            let isOk;
+            let dniVal = document.getElementById("dni").value;
+
+            isOk = verifyDNI(dniVal);
+            if (isOk) {
+                resLabel.textContent = "Es correcto!";
+                resLabel.style.color = "green";
+            } else {
+                resLabel.textContent = "Es incorrecto!";
+                resLabel.style.color = "red";
+            }
+        })
+
+    </script>
+</body>
+</html>

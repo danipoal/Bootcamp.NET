@@ -11,10 +11,18 @@ using System.Windows.Forms;
 
 namespace Empleados
 {
+    enum eCrud
+    {
+        Create,
+        Read,
+        Update,
+        Delete
+    }
     public partial class VerJobs : Form
     {
         SqlConnection Connection;
         List<Job> jobs;
+        int rowIndex;
         public VerJobs(SqlConnection connection)
         {
             InitializeComponent();
@@ -64,10 +72,15 @@ namespace Empleados
         {
             //Se ejecuta al terminar de editar
         }
-
         private void dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             //Saca el n fila de la celda que pulsas
+            rowIndex = e.RowIndex;
+
+        }
+        private void CRUD()
+        {
+
         }
     }
 }

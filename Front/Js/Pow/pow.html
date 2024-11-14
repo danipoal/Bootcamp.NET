@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Potencia</title>
+    <style>
+        main{
+            width: 30%;
+            height: 200px;
+            margin: 0 auto;
+            border: 2px solid gray;
+            background-color: azure;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+        .inputs-container{
+            display: flex;
+            justify-content: space-around;
+        }
+        input{
+            width: 40%;
+        }
+        button{
+            width: fit-content;
+            align-self: center;
+            background-color: aqua;
+            border-radius: 10px;
+            scale: 1.2;
+        }
+    </style>
+    
+</head>
+<body>
+    <main>
+        <div>
+            <p>Calculadora de Potencia</p>
+            <p id="resultado">0</p>
+        </div>
+
+        <div class="inputs-container">
+            <input type="number" name="indice" id="indice">
+            <input type="number" name="potencia" id="potencia">
+        </div>
+        <button id="calcular">Calcular</button>
+    </main>
+    <script>
+        let calcularBtn = document.getElementById("calcular");
+        let resLabel = document.getElementById("resultado");
+
+        function pot(indice, potencia) {
+            let i;
+            let suma;
+
+            suma = 1;
+            i = 0;
+            while(i < potencia){
+                suma = suma * indice;
+                i++;
+            }
+            return suma;
+        }
+        
+        calcularBtn.addEventListener('click', function PrintPow() {
+            let pow;
+            let indiceInput = document.getElementById("indice").value;
+            let potenciaInput = document.getElementById("potencia").value;
+
+
+            pow = pot(indiceInput, potenciaInput);
+            resLabel.textContent = pow;
+        })
+
+    </script>
+</body>
+</html>

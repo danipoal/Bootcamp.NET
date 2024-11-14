@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 9</title>
+    <style>
+        main{
+            width: 75%;
+            margin: 0 auto;
+        }
+        .ejercicio-container{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid;
+            text-align: center;
+            padding: 10px 0;
+        }
+        button{
+            width: fit-content;
+            align-self: center;
+            background-color: aqua;
+            border-radius: 10px;
+            scale: 1.2;
+        }
+        .color-form{
+            display: flex;
+            justify-content: space-evenly;
+            text-align: center;
+            width: 50%;
+        }
+
+        .second-f{
+            width: 130%;
+        }
+        .radio-btns{
+            display: flex;
+            flex-direction: column;
+        }
+        .a{
+            display: flex;
+            justify-content: space-between;
+            width: 70%;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div id="first" class="ejercicio-container">
+            <h3>1</h3>
+            <form class="color-form first-f">
+                <button onclick ="changeColor('blue', 'body')" type="button">blue</button>
+                <button onclick ="changeColor('green', 'body')" type="button">green</button>
+                <button onclick ="changeColor('yellow', 'body')" type="button">yellow</button>
+                <button onclick ="changeColor('brown', 'body')" type="button">brown</button>
+                <button onclick ="changeColor('white', 'body')" type="button">reset</button>
+            </form>
+        </div>
+        <div id="second" class="ejercicio-container">
+            <h3>2</h3>
+            <section class="a">
+            <form class="color-form second-f">
+                <button onclick ="changeColor('blue', '#second')" type="button">blue</button>
+                <button onclick ="changeColor('green', '#second')" type="button">green</button>
+                <button onclick ="changeColor('yellow', '#second')" type="button">yellow</button>
+                <button onclick ="changeColor('brown', '#second')" type="button">brown</button>
+                <button onclick ="changeColor('white', '#second')" type="button">reset</button>
+            </form>
+                <div class="radio-btns">
+                    <input type="radio">Document</input>
+                    <input type="radio">Container 1</input>
+                    <input type="radio">Container 2</input>
+                </div>
+            </section>
+
+        </div>
+        <div class="ejercicio-container"></div>
+        <div class="ejercicio-container"></div>
+        <div class="ejercicio-container"></div>
+    </main>
+    <script>
+        function changeColor(col, type) {
+            let scope = document.querySelector(type);
+            scope.style.backgroundColor = col;
+        }
+    </script>
+</body>
+</html>
