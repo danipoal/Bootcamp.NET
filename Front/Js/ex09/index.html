@@ -43,6 +43,9 @@
             justify-content: space-between;
             width: 70%;
         }
+        .image{
+            scale: 0.8;
+        }
     </style>
 </head>
 <body>
@@ -77,14 +80,36 @@
         </div>
         <div class="ejercicio-container">
             <h3>3</h3>
-                <p>Dias vividos: <span class="vivido">0</span></p>
+                <p>Dias vividos: <span id="vivido">0</span></p>
                 <button type="button" onclick="vividoAlert()">Programa alerts</button>
                 <br>
                 <button type="button" onclick="vividoWrite()">Programa write</button>
 
         </div>
-        <div class="ejercicio-container"></div>
-        <div class="ejercicio-container"></div>
+        <div class="ejercicio-container">
+            <h3>4</h3>
+            <section class="ex4">
+                <div>
+                    <label for="imag">Selecciona la imagen que quieres mostrar</label>
+                    <select name="imag" id="image-select" onchange="changeImage(this.value)">
+                        <option selected value="eclip">Eclipse</option>
+                        <option value="postman">Postman</option>
+                        <option value="virtualbox">VirtualBox</option>
+                        <option value="vis">VisualStudio Code</option>
+                    </select>
+                </div>
+                <div>
+                    <img class="image" id="image" src="./eclip.PNG" alt="Err displaying image">
+                </div>
+            </section>
+        </div>
+        <div class="ejercicio-container">
+            <h3>5</h3>
+            <p>Todos los multiplos de 23 hasta 1000 y su suma</p>
+            <button onclick="multiplos23()">Calcular</button>
+            <p id="suma"> </p>
+            <p id="multiplos"> </p>
+        </div>
     </main>
     <script>
         function changeColorBody(col) {
@@ -105,7 +130,39 @@
 
             nombre = prompt("Como te llamas?");
             edad = prompt("Cuantos años tienes?");
-            res.textContent = nombre + (edad*365);
+            res.textContent = nombre + " -> " + (edad*365) + " dias";
+        }
+        /*
+         * Esta función esta muy bien porque pasa directamente el valor
+         * por parametros con this.value en el select
+         */
+        function changeImage(value) {
+            const image = document.getElementById('image');
+            image.src = value + ".PNG";
+        }
+        function multiplos23(){
+            let texto;
+            let num;
+            let suma;
+
+            num = 1;
+            suma = 0;
+            texto = "Multiplos";
+            while (num < 1000) {
+                if (num % 23 == 0) {
+                    texto+= " " + num;
+                    suma += num;
+                }
+                num++;
+            }
+            printMultiplos(texto, "La suma es " + suma);
+        }
+        function printMultiplos(multiplos, suma) {
+            const multp = document.getElementById("multiplos");
+            const sump = document.getElementById("suma");
+
+            multp.textContent = multiplos;
+            sump.textContent = suma;
         }
     </script>
 </body>
