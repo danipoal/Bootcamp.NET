@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahorcado</title>
+    <style>
+        main{
+            margin: auto;
+            height:450px;
+            width: 80%;
+            border: 1px solid;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        .ahorcado-display{
+            width: 50%;
+            height: 100%;
+            border: 1px solid;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #ahorcado-canvas{
+            padding: 20px;
+            border: 1px solid red;
+            height: 200px;
+        }
+
+        .game-display{
+            width: 50%;
+            height: 100%;
+            margin-top: 40%;
+        }
+
+
+        .letters-display{
+            display: flex;
+            justify-content: space-evenly;
+        }
+        .letter{
+            font-size: x-large;
+            height: 30px;
+            width: 30px;
+            text-align: center;
+            border: 1px solid;
+        }
+        .input-sect{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            text-align: center;
+        }
+        #input-letter{
+            margin-top: 20px;
+            width: 30px;
+        }
+
+    </style>
+</head>
+<body>
+    <main>
+        <section class="ahorcado-display">
+            <canvas id="ahorcado-canvas" src="" alt="">
+        </section>
+        <section class="game-display">
+            <div class="letters-display" id="letters-display">
+                <p class="letter" id="let-1"> </p>
+                <p class="letter" id="let-2"> </p>
+                <p class="letter" id="let-3"> </p>
+                <p class="letter" id="let-4"> </p>
+                <p class="letter" id="let-5"> </p>
+                <p class="letter" id="let-6"> </p>
+                <p class="letter" id="let-7"> </p>
+                <p class="letter" id="let-8"> </p>
+            </div>
+            <div class="input-sect">
+                <label for="input-letter">Introduce la letra que crees de la palabra</label>
+                <form onsubmit="sendLetter()">
+                    <input id="input-letter" type="text">
+                    <button type="submit">Enviar</button>
+                </form>
+                <p id="lista-letras-fallidas">Letras incorrectas: </p>
+            </div>
+        </section>
+    </main>
+
+
+    <script>
+        let letrasFallidas = 1;
+        let palabra = "AHORCADO"
+        let letrasFalladas= "";
+        //let letrasUsadas = "";        TODO, no implementado de momento
+
+        /*
+         *  Manejo de la letra enviada
+         *      Letra OK -> Rellena su bloque letra correspondiente con la enviada
+         *      Letra KO -> Dibuja una parte del ahorcado y aumenta el contador de fallos
+         */
+        function sendLetter(){
+            event.preventDefault();
+            let i;
+
+            var letter = document.getElementById('input-letter').value;
+            if (palabra.includes(letter.toUpperCase())) {
+                //Encontrar la posicion [] en la que se encuentra la palabra y rellenar ese let. 
+                i = 1;
+                while (i <= 8) {
+                    if (palabra[i-1] == letter.toUpperCase()) {
+                        const letraObj = document.getElementById("let-" + i);
+                        letraObj.textContent = palabra[i-1];
+                        letraObj.style.border = "3px green solid";
+                    }
+                    i++;
+                }
+            }else{
+                drawAhorcado();
+                letrasFallidas++;
+            }
+        }
+
+
+        const canvas = document.getElementById("ahorcado-canvas");
+        const ctx = canvas.getContext("2d");
+
+        const drawAhorcado = () => {
+            ctx.beginPath();
+
+            switch (letrasFallidas) {
+                case 1:     //Soporte 
+                    ctx.moveTo(150, 15); // Comienza justo encima de la cabeza
+                    ctx.lineTo(100, 110); // El soporte vertical
+                    break;
+                case 2:     //Soporte al suelo
+                    ctx.moveTo(150, 15); // Comienza justo encima de la cabeza
+                    ctx.lineTo(100, 5); // La parte superior horizontal del soporte
+                    ctx.lineTo(100, 150); // El soporte vertical
+
+                case 3:     //Cabeza
+                    ctx.arc(150, 50, 15, 0, 2 * Math.PI);
+                    break;
+                case 4:     //Tronco corporal
+                    ctx.moveTo(150, 65); // Comienza justo debajo de la cabeza
+                    ctx.lineTo(150, 120); // La longitud del cuerpo
+                    break;
+                case 5:
+                    ctx.moveTo(150, 80); // Comienza un poco debajo de donde comienza el cuerpo para los brazos
+                    ctx.lineTo(130, 100); // Brazo izquierdo
+                    break;
+                case 5:
+                    ctx.moveTo(150, 80); // Vuelve al punto de partida para el brazo
+                    ctx.lineTo(170, 100); // Brazo derecho
+                    break;
+                case 6:
+                    ctx.moveTo(150, 120); // Comienza en el fin del cuerpo
+                    ctx.lineTo(130, 150); // Pierna izquierda
+                    break;
+                case 7:
+                    ctx.moveTo(150, 120); // Vuelve al punto de partida para la pierna
+                    ctx.lineTo(170, 150); // Pierna derecha
+                    break;
+                case 8:
+                    // ctx.arc(160, 55, 3, 0, 2 * Math.PI); //Ojo izquierdo
+                    // ctx.arc(170, 55, 3, 0, 2 * Math.PI); //Ojo derecho
+                    // ctx.moveTo(162, 56);
+                    // ctx.lineTo(162, 167);                //Lagrima
+                    break;
+                default:
+                    break;
+            }
+            ctx.stroke();
+        };
+
+    </script>
+</body>
+</html>
