@@ -101,8 +101,9 @@
         function sendLetter(){
             event.preventDefault();
             let i;
-
+            const incoLett = document.getElementById('lista-letras-fallidas');
             var letter = document.getElementById('input-letter').value;
+
             if (palabra.includes(letter.toUpperCase())) {
                 //Encontrar la posicion [] en la que se encuentra la palabra y rellenar ese let. 
                 i = 1;
@@ -116,9 +117,11 @@
                 }
             }else{
                 drawAhorcado();
+                incoLett.textContent += letter;
                 letrasFallidas++;
             }
-        }
+                document.getElementById('input-letter').value = "";
+            }
 
 
         const canvas = document.getElementById("ahorcado-canvas");
@@ -133,9 +136,9 @@
                     ctx.lineTo(100, 110); // El soporte vertical
                     break;
                 case 2:     //Soporte al suelo
-                    ctx.moveTo(150, 15); // Comienza justo encima de la cabeza
+                    ctx.moveTo(150, 15); //  encima de la cabeza
                     ctx.lineTo(100, 5); // La parte superior horizontal del soporte
-                    ctx.lineTo(100, 150); // El soporte vertical
+                    ctx.lineTo(100, 150); 
 
                 case 3:     //Cabeza
                     ctx.arc(150, 50, 15, 0, 2 * Math.PI);
@@ -161,8 +164,8 @@
                     ctx.lineTo(170, 150); // Pierna derecha
                     break;
                 case 8:
-                    // ctx.arc(160, 55, 3, 0, 2 * Math.PI); //Ojo izquierdo
-                    // ctx.arc(170, 55, 3, 0, 2 * Math.PI); //Ojo derecho
+                     ctx.arc(150, 58, 3, 0, 2 * Math.PI); //Ojo izquierdo
+                     ctx.arc(160, 58, 3, 0, 2 * Math.PI); //Ojo derecho
                     // ctx.moveTo(162, 56);
                     // ctx.lineTo(162, 167);                //Lagrima
                     break;
