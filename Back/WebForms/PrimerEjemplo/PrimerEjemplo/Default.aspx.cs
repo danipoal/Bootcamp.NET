@@ -14,15 +14,20 @@ namespace PrimerEjemplo
 
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-            Button1.Text = TextBox1.Text;
-        }
-
         protected void Button2_Click(object sender, EventArgs e)
         {
             Button2.Text = ListBox1.Text;
-            TextBox2.Text = ListBox1.Text; 
+            TextBox2.Text = ListBox1.Text;
+        }
+
+        protected void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void Button1_Click1(object sender, EventArgs e)
+        {
+            Response.Redirect("logIn.aspx");
         }
     }
 }

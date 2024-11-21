@@ -13,5 +13,17 @@ namespace PrimerEjemplo
         {
 
         }
+
+        protected void log_Click(object sender, EventArgs e)
+        {
+            string userName = "dani";
+            string pass = "root";
+
+            if (userName == userTextb.Text && pass == passwordTextb.Text)
+            {
+                Session["user"] = userName;
+            }
+
+        }
     }
 }
