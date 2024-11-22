@@ -16,7 +16,6 @@ namespace PrimerEjemplo
 
             if (string.IsNullOrEmpty((string)Session["user"]))
             {
-                logDiv.InnerHtml = "<asp:Button CssClass=\"btn btn-primary\" ID=\"Button1\" runat=\"server\" Text=\"Iniciar Sesión\" OnClick=\"Button1_Click\" />\r\n";
                 Button logIn = new Button();
                 logIn.ID = "Button1";
                 logIn.CssClass = "btn btn-primary";
@@ -30,6 +29,7 @@ namespace PrimerEjemplo
             {
                 // Agrega un párrafo con información de la sesión
                 Literal literal = new Literal();
+                
                 literal.Text = $"<p class='text-light'>{Session["user"]}</p>";
                 logDiv.Controls.Add(literal);
 
@@ -52,7 +52,7 @@ namespace PrimerEjemplo
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            Response.Redirect("logIn.aspx");
+            Response.Redirect("Default.aspx");
         }
     }
 }
