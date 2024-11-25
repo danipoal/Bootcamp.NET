@@ -69,19 +69,21 @@ namespace PrimerMVC.DAL
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string Query = "INSERT INTO Animal(NombreAnimal, Raza, RazaAnimal, RITipoAnimal, FechaNacimiento, TipoAnimal) VALUES (@NombreAnimal, @Raza, @RazaAnimal, @RITipoAnimal,@FechaNacimiento, @TipoAnimal)";
+                string Query = @"INSERT INTO Animal(NombreAnimal, Raza, RIdTipoAnimal, FechaNacimiento) 
+                                VALUES (@NombreAnimal, @Raza, @RIdTipoAnimal,@FechaNacimiento);
+                                SELECT SCOPE_IDENTITY();";
                 SqlCommand cmd = new SqlCommand(Query, conn);
 
                 cmd.Parameters.AddWithValue("@NombreAnimal", newAnimal.NombreAnimal);
                 cmd.Parameters.AddWithValue("@Raza", newAnimal.Raza);
-                cmd.Parameters.AddWithValue("@RazaAnimal", 1);
-                cmd.Parameters.AddWithValue("@TipoAnimal", newAnimal.TipoAnimal.IdTipoAnimal); //Acordarse que aqui se pasa un id a la tabla
+                cmd.Parameters.AddWithValue("@RIdTipoAnimal", newAnimal.RITipoAnimal); //Acordarse que aqui se pasa un id a la tabla
 
-                cmd.Parameters.AddWithValue("@FechaNacimiento", newAnimal.FechaNacimiento);
-                cmd.Parameters.AddWithValue("@RITipoAnimal", newAnimal.RITipoAnimal);
+                cmd.Parameters.AddWithValue("@FechaNacimiento", newAnimal.FechaNacimiento ?? (object)DBNull.Value);   //Como puede ser null hay que manejar la posibilidad
                 
                 conn.Open();
-                return (int) cmd.ExecuteScalar();    //Retorna el SCOPE_Identity osea el id que ha creado
+                object result = cmd.ExecuteScalar();
+
+                return (result != null) ? Convert.ToInt32(result) : 0;  // Maneja el caso donde SCOPE_IDENTITY() puede retornar null
             }
 
         }

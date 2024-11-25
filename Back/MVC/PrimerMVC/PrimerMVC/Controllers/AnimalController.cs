@@ -41,14 +41,16 @@ namespace PrimerMVC.Controllers
             
             AnimalDal dal = new AnimalDal();
             TipoAnimalDal tipoDal  = new TipoAnimalDal();
-            animal.TipoAnimal = tipoDal.GetById(idTipoAnimal);  // Método ficticio para obtener TipoAnimal
+            animal.TipoAnimal = tipoDal.GetById(idTipoAnimal);
+
+            Console.WriteLine(animal.TipoAnimal.IdTipoAnimal);
 
             int id = dal.Create(animal);
 
             // Estaria bien que te retorne el id para que se le pase al viewMode
             // Y ver los detalles
 
-            return RedirectToAction("AnimalDetails", new { id = id });
+            return RedirectToAction("AnimalDetail", new { id = id });
         }
     }
 }
