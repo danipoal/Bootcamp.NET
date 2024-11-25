@@ -31,5 +31,32 @@ namespace PrimerMVC.DAL
                 return tipoAnimal;
             }
         }
+
+        public List<TipoAnimal> GetAll()
+        {
+            List<TipoAnimal> tiposAnimales = new List<TipoAnimal>();
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string Query = "SELECT * FROM TipoAnimal";
+                SqlCommand cmd = new SqlCommand(Query, conn);
+
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read()) // Lee cada fila resultante
+                {
+                    TipoAnimal tipoAnimal = new TipoAnimal
+                    {
+                        IdTipoAnimal = Convert.ToInt32(reader["IdTipoAnimal"]),
+                        TipoDescripcion = reader["TipoDescripcion"] == DBNull.Value ? null : reader["TipoDescripcion"].ToString()
+                    };
+
+                    tiposAnimales.Add(tipoAnimal);
+                }
+            }
+
+            return tiposAnimales;
+        }
     }
 }

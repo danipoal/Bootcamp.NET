@@ -1,0 +1,27 @@
+﻿@using PrimerMVC.Models.ViewModels
+@model AddAnimalViewModel
+
+<h1>Añadir un Animal</h1>
+
+<form asp-action="AddAnimal" asp-controller="Animal" method="post">
+    <label>Nombre</label>
+    <input type="text" name="nombreAnimal" value="" />
+
+    <label>Raza</label>
+    <input type="text" name="raza" value="" />
+    
+    <label>Fecha de Nacimiento</label>
+    <input type="date" name="date" value="" />
+    
+    <label>Tipo Animal</label>
+    <select name="tipoAnimal">
+        <option disabled> Selecciona el tipo de animal</option>
+        @foreach (var tipo in Model.TipoAnimales)
+        {
+            <option value="@tipo">@tipo.TipoDescripcion </option>
+        }
+    </select>
+
+
+    <button type="submit">Agregar</button>
+</form>

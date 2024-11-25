@@ -65,5 +65,22 @@ namespace PrimerMVC.DAL
             }
             return animal;  // Devolver el animal encontrado o null si no se encontró ninguno
         }
+        public int Create(Animal newAnimal)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string Query = "INSERT INTO Animal(NombreAnimal, Raza, FechaNacimiento, RIdTipoAnimal) VALUES (@NombreAnimal, @Raza, @FechaNacimiento, @RIdTipoAnimal)";
+                SqlCommand cmd = new SqlCommand(Query, conn);
+
+                cmd.Parameters.AddWithValue("@NombreAnimal", newAnimal.NombreAnimal);
+                cmd.Parameters.AddWithValue("@Raza", newAnimal.Raza);
+                cmd.Parameters.AddWithValue("@FechaNacimiento", newAnimal.FechaNacimiento);
+                cmd.Parameters.AddWithValue("@RidTipoAnimal", newAnimal.RITipoAnimal);
+                
+                conn.Open();
+                return (int) cmd.ExecuteScalar();    //Retorna el SCOPE_Identity osea el id que ha creado
+            }
+
+        }
     }
 }
