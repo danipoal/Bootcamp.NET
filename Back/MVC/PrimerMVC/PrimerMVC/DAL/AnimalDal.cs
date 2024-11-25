@@ -5,7 +5,7 @@ namespace PrimerMVC.DAL
 {
     public class AnimalDal
     {
-        private string connectionString = "";
+        private string connectionString = "Data Source=85.208.21.117,54321;Initial Catalog=DaniAnimales;User ID=sa;Password=Sql#123456789;TrustServerCertificate=True;";
         [Obsolete]
         public List<Animal> GetAll()
         {
@@ -19,10 +19,11 @@ namespace PrimerMVC.DAL
                 conn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
 
-                while (reader.Read()) {
+                while (reader.Read())
+                {
                     Animal animal = new Animal()
                     {
-                        IdAnimal = Convert.ToInt32(reader["id"]),
+                        IdAnimal = Convert.ToInt32(reader["IdAnimal"]),
                         NombreAnimal = reader["NombreAnimal"].ToString(),
                         Raza = reader["Raza"]?.ToString(),
                         RITipoAnimal = Convert.ToInt32(reader["RIdTipoAnimal"].ToString()),
@@ -31,10 +32,9 @@ namespace PrimerMVC.DAL
                     };
                     animales.Add(animal);
 
+                }
+                return new List<Animal>(animales);
             }
-            return new List<Animal>();
         }
-
-
     }
 }

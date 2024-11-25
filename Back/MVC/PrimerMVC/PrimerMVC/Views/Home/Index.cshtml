@@ -9,9 +9,9 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     <ul>
-    @for (int i = 0; i < Model.Animales.Count; i++)
+    @foreach(var animal in Model.Animales)
     {
-        <li> <span class="animal-id">Id: @(i + 1)</span>@Model.Animales[i]</li> <!-- Este viene de el ModelView-->
+        <li> <span class="animal-id">Id: @animal.IdAnimal</span>@animal.NombreAnimal</li> <!-- Este viene de el ModelView-->
     }
     </ul>
 

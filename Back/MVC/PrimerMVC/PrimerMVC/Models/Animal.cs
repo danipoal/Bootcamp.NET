@@ -12,5 +12,5 @@
 
         public TipoAnimal TipoAnimal {  get; set; }
 
-}
+    }
 }

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using PrimerMVC.Models;
 using System.Diagnostics;
 using PrimerMVC.Models.ViewModels;
+using PrimerMVC.DAL;
 
 namespace PrimerMVC.Controllers
 {
@@ -14,9 +15,13 @@ namespace PrimerMVC.Controllers
             _logger = logger;
         }
 
+        [Obsolete]
         public IActionResult Index()
         {
+            AnimalDal dal = new AnimalDal();
+
             AnimalesViewModel viw = new AnimalesViewModel();
+            viw.Animales = dal.GetAll();
             return View(viw);
         }
 

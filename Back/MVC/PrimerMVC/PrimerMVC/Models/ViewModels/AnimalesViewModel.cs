@@ -1,11 +1,13 @@
-﻿namespace PrimerMVC.Models.ViewModels
+﻿using System.Security.Cryptography;
+
+namespace PrimerMVC.Models.ViewModels
 {
     public class AnimalesViewModel
     {    
-        public List<string> Animales { get; set; } = new List<string>();
+        public List<Animal> Animales { get; set; } = new List<Animal>();
 
         public AnimalesViewModel() {
-
+            
         }
     }
 }
