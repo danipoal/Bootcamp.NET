@@ -87,5 +87,20 @@ namespace PrimerMVC.DAL
             }
 
         }
+        public bool DeleteById(int id)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string sqlQuery = "DELETE FROM Animal WHERE IdAnimal = @id";
+                SqlCommand cmd = new SqlCommand(sqlQuery, conn);
+                cmd.Parameters.AddWithValue("@id", id);  // Protección contra la inyección SQL
+
+                conn.Open();
+                int rowsAffected = cmd.ExecuteNonQuery();  // Ejecuta la consulta y retorna el número de filas afectadas
+
+                return rowsAffected > 0;  // Retorna true si alguna fila fue eliminada
+            }
+        }
+
     }
 }

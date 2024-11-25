@@ -52,5 +52,14 @@ namespace PrimerMVC.Controllers
 
             return RedirectToAction("AnimalDetail", new { id = id });
         }
+
+        [Obsolete]
+        public IActionResult AnimalDelete(int id)
+        {
+            AnimalDal dal = new AnimalDal();
+
+            dal.DeleteById(id);
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
