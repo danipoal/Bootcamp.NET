@@ -25,9 +25,10 @@ namespace PrimerMVC.Controllers
             return View(viw);
         }
 
-        public IActionResult Privacy()
+        public IActionResult AnimalDetail(int id)
         {
-            return View();
+
+            return RedirectToAction("AnimalDetail", "Animal", new {id});
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

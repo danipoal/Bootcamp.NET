@@ -35,6 +35,35 @@ namespace PrimerMVC.DAL
                 }
                 return new List<Animal>(animales);
             }
+
+        }
+        public Animal GetById(int id)
+        {
+            TipoAnimalDal tipoAnimalDal = new TipoAnimalDal();  // Asumiendo que TipoAnimalDal tiene un método GetById
+            Animal animal = null;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string sqlQuery = "SELECT * FROM Animal WHERE IdAnimal = @id";
+                SqlCommand cmd = new SqlCommand(sqlQuery, conn);
+                cmd.Parameters.AddWithValue("@id", id);  // Usar parámetros para prevenir SQL Injection
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())  // Solo esperamos una fila, no necesitamos while
+                {
+                    animal = new Animal()
+                    {
+                        IdAnimal = Convert.ToInt32(reader["IdAnimal"]),
+                        NombreAnimal = reader["NombreAnimal"].ToString(),
+                        Raza = reader["Raza"]?.ToString(),
+                        RITipoAnimal = Convert.ToInt32(reader["RIdTipoAnimal"]),
+                        FechaNacimiento = reader["FechaNacimiento"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(reader["FechaNacimiento"]),
+                        TipoAnimal = tipoAnimalDal.GetById(Convert.ToInt32(reader["RIdTipoAnimal"]))
+                    };
+                }
+            }
+            return animal;  // Devolver el animal encontrado o null si no se encontró ninguno
         }
     }
 }
