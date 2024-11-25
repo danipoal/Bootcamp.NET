@@ -69,13 +69,16 @@ namespace PrimerMVC.DAL
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string Query = "INSERT INTO Animal(NombreAnimal, Raza, FechaNacimiento, RIdTipoAnimal) VALUES (@NombreAnimal, @Raza, @FechaNacimiento, @RIdTipoAnimal)";
+                string Query = "INSERT INTO Animal(NombreAnimal, Raza, RazaAnimal, RITipoAnimal, FechaNacimiento, TipoAnimal) VALUES (@NombreAnimal, @Raza, @RazaAnimal, @RITipoAnimal,@FechaNacimiento, @TipoAnimal)";
                 SqlCommand cmd = new SqlCommand(Query, conn);
 
                 cmd.Parameters.AddWithValue("@NombreAnimal", newAnimal.NombreAnimal);
                 cmd.Parameters.AddWithValue("@Raza", newAnimal.Raza);
+                cmd.Parameters.AddWithValue("@RazaAnimal", 1);
+                cmd.Parameters.AddWithValue("@TipoAnimal", newAnimal.TipoAnimal.IdTipoAnimal); //Acordarse que aqui se pasa un id a la tabla
+
                 cmd.Parameters.AddWithValue("@FechaNacimiento", newAnimal.FechaNacimiento);
-                cmd.Parameters.AddWithValue("@RidTipoAnimal", newAnimal.RITipoAnimal);
+                cmd.Parameters.AddWithValue("@RITipoAnimal", newAnimal.RITipoAnimal);
                 
                 conn.Open();
                 return (int) cmd.ExecuteScalar();    //Retorna el SCOPE_Identity osea el id que ha creado

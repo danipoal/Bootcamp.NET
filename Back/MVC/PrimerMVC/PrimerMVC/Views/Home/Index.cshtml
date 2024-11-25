@@ -8,7 +8,9 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    <Button type="button" asp-action="AddAnimal" asp-controller="Animal"> Añadir Animal</Button>
+    
+    <!-- Este a no puede ser un boton, ya que para que el boton funcione, aqui siempre tiene que ir en un FORM-->
+    <a asp-action="AddAnimal" asp-controller="Animal" class="btn btn-primary">Añadir Animal</a>
     <ul>
     @foreach(var animal in Model.Animales)
     {

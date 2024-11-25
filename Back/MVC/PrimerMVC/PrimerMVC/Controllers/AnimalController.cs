@@ -28,25 +28,27 @@ namespace PrimerMVC.Controllers
 
             return View(viewModel);
         }
-        public IActionResult Add(string NombreAnimal, string Raza, TipoAnimal TipoAnimal, DateTime? FechaNacimiento)
+        public IActionResult AddAnimalBBDD(string nombreAnimal, string raza, int idTipoAnimal, DateTime? fechaNacimiento)
         {
             Animal animal = new Animal();
 
-            animal.NombreAnimal = NombreAnimal;
-            animal.Raza = Raza;
+            animal.NombreAnimal = nombreAnimal;
+            animal.Raza = raza;
             animal.RazaAnimal = 1;
-            animal.FechaNacimiento = FechaNacimiento;
-            animal.TipoAnimal = TipoAnimal;
-
+            animal.FechaNacimiento = fechaNacimiento;
+            animal.RITipoAnimal = idTipoAnimal;
+            
+            
             AnimalDal dal = new AnimalDal();
+            TipoAnimalDal tipoDal  = new TipoAnimalDal();
+            animal.TipoAnimal = tipoDal.GetById(idTipoAnimal);  // Método ficticio para obtener TipoAnimal
+
             int id = dal.Create(animal);
 
             // Estaria bien que te retorne el id para que se le pase al viewMode
             // Y ver los detalles
 
-            AnimalDetailViewModel viewModel = new AnimalDetailViewModel();
-            viewModel.AnimalDetail = dal.GetById(id);
-            return View(viewModel);
+            return RedirectToAction("AnimalDetails", new { id = id });
         }
     }
 }
