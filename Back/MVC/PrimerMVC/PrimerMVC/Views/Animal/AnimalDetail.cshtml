@@ -1,10 +1,23 @@
 ﻿@model PrimerMVC.Models.ViewModels.AnimalDetailViewModel
 
+@{
+    var errorMessage = ViewBag.NoAnimal as string;
+}
 
-<!-- Esta vista sera donde le llega toda la info de el Animal Detail y se muestra-->
-<h1>Detalles del Animal</h1>
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-danger" role="alert">
+        @errorMessage
+    </div>
+}
+else
+{
+    <!-- Esta vista sera donde le llega toda la info de el Animal Detail y se muestra-->
+    <h1>Detalles del Animal</h1>
 
-<p>Id: @Model.AnimalDetail.IdAnimal</p>
-<p>Nombre: @Model.AnimalDetail.NombreAnimal</p>
-<p>Raza: @Model.AnimalDetail.Raza</p>
-<p>Tipo Animal: @Model.AnimalDetail.TipoAnimal.TipoDescripcion</p>
+    <p>Id: @Model.AnimalDetail.IdAnimal</p>
+    <p>Nombre: @Model.AnimalDetail.NombreAnimal</p>
+    <p>Raza: @Model.AnimalDetail.Raza</p>
+    <p>Tipo Animal: @Model.AnimalDetail.TipoAnimal.TipoDescripcion</p>
+}
+

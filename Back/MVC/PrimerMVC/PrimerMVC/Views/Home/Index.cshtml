@@ -15,7 +15,7 @@
     @foreach(var animal in Model.Animales)
     {
         <li> <span class="animal-id">Id: @animal.IdAnimal</span>@animal.NombreAnimal <!-- Este viene de el ModelView-->
-        <form asp-action="AnimalDetail" asp-controller="Home" method="post" style="display:inline;">
+        <form asp-action="AnimalDetail" asp-controller="Home" method="get" style="display:inline;">
             <input type="hidden" name="id" value="@animal.IdAnimal"/> <!--Esto es un input que realmente no es visible, guarda el id de ese animal-->
             <button type="submit">Ver detalles</button>
 

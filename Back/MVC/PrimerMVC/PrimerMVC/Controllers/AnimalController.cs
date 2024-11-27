@@ -7,13 +7,18 @@ namespace PrimerMVC.Controllers
 {
     public class AnimalController : Controller
     {
+        [HttpGet]
         public IActionResult AnimalDetail(int id)
         {
             AnimalDal dal = new AnimalDal();
-
             AnimalDetailViewModel viewModel = new AnimalDetailViewModel();
 
             viewModel.AnimalDetail = dal.GetById(id);
+            if (viewModel.AnimalDetail == null)
+            {
+                ViewBag.NoAnimal = "No se ha encontrado este animal";
+            }
+
             return View(viewModel);
         }
 
