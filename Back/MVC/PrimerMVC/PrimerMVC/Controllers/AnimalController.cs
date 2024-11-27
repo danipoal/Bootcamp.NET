@@ -50,19 +50,24 @@ namespace PrimerMVC.Controllers
 
             return View(viewModel);
         }
-        public IActionResult AddAnimalBBDD(string nombreAnimal, string raza, int idTipoAnimal, DateTime? fechaNacimiento)
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddAnimalBBDD(AddAnimalViewModel addViewModel)
         {
             Animal animal = new Animal();
 
-            animal.NombreAnimal = nombreAnimal;
-            animal.Raza = raza;
-            animal.FechaNacimiento = fechaNacimiento;
-            animal.RITipoAnimal = idTipoAnimal;
+            // Lo suyo es no crear un nuevo animal y usar el del viewModel todo el rato
+            //      Pero ya tenia el codigo hecho y quiero modificar el mínimo
+            animal.NombreAnimal = addViewModel.animal.NombreAnimal;
+            animal.Raza = addViewModel.animal.Raza;
+            animal.FechaNacimiento = addViewModel.animal.FechaNacimiento;
+            animal.RITipoAnimal = addViewModel.animal.RITipoAnimal;
             
             
             AnimalDal dal = new AnimalDal();
             TipoAnimalDal tipoDal  = new TipoAnimalDal();
-            animal.TipoAnimal = tipoDal.GetById(idTipoAnimal);
+            animal.TipoAnimal = tipoDal.GetById(addViewModel.animal.IdAnimal);
 
             Console.WriteLine(animal.TipoAnimal.IdTipoAnimal);
 

@@ -3,26 +3,37 @@
 
 <h1>Añadir un Animal</h1>
 
-<form asp-action="AddAnimalBBDD" asp-controller="Animal" method="post" style="display: flex; flex-direction: column;">
-    <label>Nombre</label>
-    <input type="text" name="nombreAnimal" value="" />
+<form asp-action="AddAnimalBBDD" asp-controller="Animal" method="post" style="display: flex; flex-direction: column;" asp-antiforgery="true">
+    <label asp-for="animal.NombreAnimal">Nombre</label>
+    <input asp-for="animal.NombreAnimal" type="text" value="" />
+    <span asp-validation-for="animal.NombreAnimal"></span>
 
     <label>Raza</label>
-    <input type="text" name="raza" value="" />
+    <input asp-for="animal.Raza" type="text" value="" />
+    <span asp-validation-for="animal.Raza"></span>
+
     
     <label>Fecha de Nacimiento</label>
-    <input type="date" name="fechaNacimiento" value="
-" />
+    <input asp-for="animal.FechaNacimiento" type="date" value="" />
+    <span asp-validation-for="animal.FechaNacimiento"></span>
+
     
     <label>Tipo Animal</label>
-    <select name="idTipoAnimal">
+    <select asp-for="animal.RITipoAnimal">
         <option disabled> Selecciona el tipo de animal</option>
         @foreach (var tipo in Model.TipoAnimales)
         {
             <option value="@tipo.IdTipoAnimal">@tipo.TipoDescripcion </option>
         }
     </select>
+    <span asp-validation-for="animal.RITipoAnimal"></span>
 
 
     <button type="submit" style="margin-top: 10px;">Agregar</button>
 </form>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
