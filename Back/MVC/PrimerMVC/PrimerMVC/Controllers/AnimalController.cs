@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using PrimerMVC.DAL;
 using PrimerMVC.Models;
 using PrimerMVC.Models.ViewModels;
@@ -18,8 +19,25 @@ namespace PrimerMVC.Controllers
             {
                 ViewBag.NoAnimal = "No se ha encontrado este animal";
             }
+            // Podriamos devolver directamente el ViewModel y ello ya buscaria Animal/AnimalDetail
+            //return View(viewModel);
 
-            return View(viewModel);
+            // Opcion 2 -> Guardar el elemento en json en TempData y
+            TempData["Animal"] = JsonConvert.SerializeObject(viewModel);
+            
+            //      redireccionar a otro controlador que llevara a la vista
+            return RedirectToAction("TempDataDetails", "Animal");
+        }
+        public IActionResult TempDataDetails()
+        {
+            if (TempData["Animal"] != null)
+            {
+                var json = TempData["Animal"] as string;
+                var vm = JsonConvert.DeserializeObject<AnimalDetailViewModel>(json);
+
+                return View(vm);
+            }
+            return RedirectToAction("Index","Home");
         }
 
         public IActionResult AddAnimal()
