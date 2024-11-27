@@ -17,7 +17,6 @@ namespace PrimerMVC.Controllers
             return View(viewModel);
         }
 
-        [Obsolete]
         public IActionResult AddAnimal()
         {
             TipoAnimalDal dal = new TipoAnimalDal();
@@ -34,7 +33,6 @@ namespace PrimerMVC.Controllers
 
             animal.NombreAnimal = nombreAnimal;
             animal.Raza = raza;
-            animal.RazaAnimal = 1;
             animal.FechaNacimiento = fechaNacimiento;
             animal.RITipoAnimal = idTipoAnimal;
             
@@ -53,12 +51,52 @@ namespace PrimerMVC.Controllers
             return RedirectToAction("AnimalDetail", new { id = id });
         }
 
-        [Obsolete]
         public IActionResult AnimalDelete(int id)
         {
             AnimalDal dal = new AnimalDal();
 
             dal.DeleteById(id);
+            return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult EditAnimal(int id)
+        {
+            AnimalDal dal = new AnimalDal();
+            TipoAnimalDal tipoAnimalDal = new TipoAnimalDal();
+
+            // Recuperar el animal por su ID
+            Animal animal = dal.GetById(id);
+            if (animal == null)
+            {
+                return NotFound(); // Retorna una vista de error si el animal no existe
+            }
+
+            // Recuperar todos los tipos de animales para el dropdown
+            List<TipoAnimal> tipos = tipoAnimalDal.GetAll();
+
+            // Preparar el modelo de vista
+            AddAnimalViewModel model = new AddAnimalViewModel
+            {
+                animal = animal,
+                TipoAnimales = tipos
+            };
+
+            // Pasar el modelo a la vista
+            return View(model);
+        }
+        public IActionResult AnimalUpdate(int id, string nombreAnimal, string raza, int idTipoAnimal, DateTime? fechaNacimiento)
+        {
+            Animal animal = new Animal();
+
+            animal.IdAnimal = id;
+            animal.NombreAnimal = nombreAnimal;
+            animal.Raza = raza;
+            animal.FechaNacimiento = fechaNacimiento;
+            animal.RITipoAnimal = idTipoAnimal;
+
+
+            AnimalDal dal = new AnimalDal();
+            dal.UpdateById(animal);
             return RedirectToAction("Index", "Home");
         }
     }

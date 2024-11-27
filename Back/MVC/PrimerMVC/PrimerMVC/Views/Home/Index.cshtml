@@ -22,7 +22,13 @@
         </form>
         <form asp-action="AnimalDelete" asp-controller="Animal" method="post" style="display:inline;">
              <input type="hidden" name="id" value="@animal.IdAnimal" /> <!--Esto es un input que realmente no es visible, guarda el id de ese animal-->
-            <button type="submit" style="background: red;">Eliminar</button>
+             <button type="submit" style="background: red;">Eliminar</button>
+
+        </form>
+
+                <form asp-action="EditAnimal" asp-controller="Animal" method="post" style="display:inline;">
+             <input type="hidden" name="id" value="@animal.IdAnimal" /> <!--Esto es un input que realmente no es visible, guarda el id de ese animal-->
+             <button type="submit" style="background: yellow;">Editar</button>
 
         </form>
 

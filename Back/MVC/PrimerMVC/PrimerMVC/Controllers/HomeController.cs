@@ -31,6 +31,7 @@ namespace PrimerMVC.Controllers
             return RedirectToAction("AnimalDetail", "Animal", new {id});
         }
 
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

@@ -1,12 +1,11 @@
-﻿using PrimerMVC.Models;
-using System.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
+using PrimerMVC.Models;
 
 namespace PrimerMVC.DAL
 {
     public class AnimalDal
     {
         private string connectionString = "Data Source=85.208.21.117,54321;Initial Catalog=DaniAnimales;User ID=sa;Password=Sql#123456789;TrustServerCertificate=True;";
-        [Obsolete]
         public List<Animal> GetAll()
         {
             List<Animal> animales = new List<Animal>();
@@ -99,6 +98,30 @@ namespace PrimerMVC.DAL
                 int rowsAffected = cmd.ExecuteNonQuery();  // Ejecuta la consulta y retorna el número de filas afectadas
 
                 return rowsAffected > 0;  // Retorna true si alguna fila fue eliminada
+            }
+        }
+        public bool UpdateById(Animal newAnimal)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string Query = @"UPDATE Animal SET NombreAnimal = @NombreAnimal,
+                                                   Raza = @Raza,
+                                                   RIdTipoAnimal = @RIdTipoAnimal,
+                                                   FechaNacimiento = @FechaNacimiento
+                                    WHERE IdAnimal = @id";
+                
+                SqlCommand cmd = new SqlCommand(Query, conn);
+                cmd.Parameters.AddWithValue("@id", newAnimal.IdAnimal);
+
+                cmd.Parameters.AddWithValue("@NombreAnimal", newAnimal.NombreAnimal);
+                cmd.Parameters.AddWithValue("@Raza", newAnimal.Raza);
+                cmd.Parameters.AddWithValue("@RIdTipoAnimal", newAnimal.RITipoAnimal);
+                cmd.Parameters.AddWithValue("@FechaNacimiento", newAnimal.FechaNacimiento);
+
+                conn.Open();
+                int rowsAffected = cmd.ExecuteNonQuery(); 
+                
+                return rowsAffected > 0;
             }
         }
 
