@@ -50,15 +50,23 @@ namespace LoginMVC.Controllers
         public IActionResult SignUp(SignUpViewModel model)
         {
 
-            // TODO Gestion de el post 
             Usuario usuario = new Usuario();
             UsuarioDAL dal = new UsuarioDAL();
 
+
+            //Comprobar si el usuario ya es existente
+            Usuario existUser = dal.getUsuarioLogin(model.UserName, model.Password);
+            if (existUser != null)
+            {
+                ModelState.AddModelError("", "El usuario ya existe");
+                return View(model);
+            }
+
+
             usuario.UserName = model.UserName;
-            usuario.Pwd = model.Password;
 
             // Si devuelve true es que se creo ya que se modifico una row
-            if (dal.CreateUser(usuario))
+            if (dal.CreateUser(usuario, model.Password))
             {
                 // Luego hacemos el login y miramos que exista
                 Usuario validarUsuario = dal.getUsuarioLogin(model.UserName, model.Password);

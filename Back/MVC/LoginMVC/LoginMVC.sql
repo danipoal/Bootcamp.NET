@@ -1,4 +1,7 @@
 -- Crear la tabla Usuario
+
+USE DaniLogin;
+
 CREATE TABLE Usuario (
     IdUsuario INT IDENTITY(1,1) PRIMARY KEY,                  
     UserName NVARCHAR(50) NOT NULL UNIQUE,   
