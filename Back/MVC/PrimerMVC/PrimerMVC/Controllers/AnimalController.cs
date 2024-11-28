@@ -28,6 +28,7 @@ namespace PrimerMVC.Controllers
             //      redireccionar a otro controlador que llevara a la vista
             return RedirectToAction("TempDataDetails", "Animal");
         }
+
         public IActionResult TempDataDetails()
         {
             if (TempData["Animal"] != null)
@@ -112,6 +113,7 @@ namespace PrimerMVC.Controllers
             // Pasar el modelo a la vista
             return View(model);
         }
+
         public IActionResult AnimalUpdate(int id, string nombreAnimal, string raza, int idTipoAnimal, DateTime? fechaNacimiento)
         {
             Animal animal = new Animal();
