@@ -12,7 +12,6 @@ namespace LoginMVC.Controllers
             return View();
         }
 
-
         // Si recibe un post con el modelo, valida
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -38,6 +37,20 @@ namespace LoginMVC.Controllers
             }
 
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult SignUp()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult SignUp(SignUpViewModel model)
+        {
+
+            // TODO Gestion de el post 
         }
     }
 }
