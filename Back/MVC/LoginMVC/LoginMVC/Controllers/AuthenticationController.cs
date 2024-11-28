@@ -29,7 +29,7 @@ namespace LoginMVC.Controllers
                 // Le pasamos las credenciales que llegan del form a el dal que nos devuelve user si todo ok
                 if (usuario != null)
                 {
-                    HttpContext.Session.SetString("Username", usuario.UserName);
+                    HttpContext.Session.SetString("UserName", usuario.UserName);
                     // Autenticacion exitosa
                     return RedirectToAction("Index", "Home");
                 }
@@ -51,6 +51,31 @@ namespace LoginMVC.Controllers
         {
 
             // TODO Gestion de el post 
+            Usuario usuario = new Usuario();
+            UsuarioDAL dal = new UsuarioDAL();
+
+            usuario.UserName = model.UserName;
+            usuario.Pwd = model.Password;
+
+            // Si devuelve true es que se creo ya que se modifico una row
+            if (dal.CreateUser(usuario))
+            {
+                // Luego hacemos el login y miramos que exista
+                Usuario validarUsuario = dal.getUsuarioLogin(model.UserName, model.Password);
+                if (validarUsuario != null)
+                {
+                    HttpContext.Session.SetString("UserName", model.UserName);
+                    return RedirectToAction("Index", "Home");
+                }
+                Console.WriteLine("Row affected, User creado, error al iniciar sesion posteriormente");
+            }
+            else
+            {
+                Console.WriteLine("No rows affected");
+            }
+            // Si algo de lo demas falla, pasamos aqui
+            ModelState.AddModelError("","Por alguna razon no se ha podido crear el usuario");
+            return View(model);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace LoginMVC.Controllers
         //  sino, te redirije al login
         public IActionResult Index()
         {
-            string username = HttpContext.Session.GetString("Username");
+            string username = HttpContext.Session.GetString("UserName");
             if (string.IsNullOrEmpty(username))
                 return RedirectToAction("Login", "Authentication");
             ViewData["UserName"] = username;
