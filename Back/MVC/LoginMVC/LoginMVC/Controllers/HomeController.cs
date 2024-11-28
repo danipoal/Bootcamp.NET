@@ -13,8 +13,15 @@ namespace LoginMVC.Controllers
             _logger = logger;
         }
 
+        // Si estas logeado se guarda la sesion y podremos ver index,
+        //  sino, te redirije al login
         public IActionResult Index()
         {
+            string username = HttpContext.Session.GetString("Username");
+            if (string.IsNullOrEmpty(username))
+                return RedirectToAction("Login", "Authentication");
+            ViewData["UserName"] = username;
+            ViewBag.UserName = username;
             return View();
         }
 
