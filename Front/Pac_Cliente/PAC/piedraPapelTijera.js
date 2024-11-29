@@ -22,7 +22,9 @@ const imagenes = Array.from(document.querySelectorAll("img"));
 
 // Elimino la ultima imagen que es la de la maquina para no interactuar en el CSS con ella
 const maquinaImg = imagenes.pop();
-
+imagenes.forEach((imagen, index) => {
+    imagen.addEventListener("click", () => imageSelection(index)); 
+});
 
 // Sistema de numero partidas y nombre de usuario
 function jugar() {
@@ -51,7 +53,7 @@ function jugar() {
     }
     nombreValue = nombre.value;
     partidasTotal = partidas.value;
-    
+
     // Bloquear inputs y asignar span
     const partidasSpan = document.getElementById("total");
     partidasSpan.textContent = partidasTotal;
@@ -70,7 +72,20 @@ botonJugar.addEventListener("click", jugar);
 
 
 //TODO Logica de juego, eleccion de la posibilidad vs random machine
+function imageSelection(index) {
+    imagenes.forEach((imagen, indexImg) => {
+        if (indexImg == index) {
+            imagen.classList.add("seleccionado");
+            imagen.classList.remove("noSeleccionado");
+        } else {
+            imagen.classList.add("noSeleccionado");
+            imagen.classList.remove("seleccionado");
+        }
+    });
+}
+
 function juego(){
+
     console.log(nombre + partidas + "bbb");
 }
 
