@@ -16,8 +16,8 @@ CREATE TABLE Follow (
     FOREIGN KEY (IdFollowed) REFERENCES [User](IdUser)
 );
 
-CREATE TABLE BookList (
-	IdBookList int IDENTITY(1,1) PRIMARY KEY,
+CREATE TABLE [Library] (
+	IdLibrary int IDENTITY(1,1) PRIMARY KEY,
 	ListName varchar(255) NOT NULL,
 	FkIdUser int NOT NULL,
 	FOREIGN KEY (FkIdUser) REFERENCES [User](IdUser)
@@ -27,15 +27,40 @@ CREATE TABLE Book (
 	IdBook int IDENTITY(1,1) PRIMARY KEY,
 	Title varchar(255) NOT NULL,
 	Author varchar(255) NOT NULL,
-	ImageLink varchar(255) NOT NULL,
+	[Description] varchar(1024),
+	ImageLink varchar(255),
 	Subtitle varchar(255),
-
+	Editorial varchar(255),
+	[PageCount] varchar(255),
+	Score double precision
 );
 
-CREATE TABLE BookList_Book (
-	FkIdBookList int,
+CREATE TABLE Library_Book (
+	FkIdLibrary int,
 	FkIdBook int,
-	PRIMARY KEY (FkIdBookList, FkIdBook),
-	FOREIGN KEY (FkIdBookList) REFERENCES BookList(IdBookList),
-	FOREIGN KEY (FkIdBookList) REFERENCES Book(IdBook)
+	PRIMARY KEY (FkIdLibrary, FkIdBook),
+	FOREIGN KEY (FkIdLibrary) REFERENCES [Library](IdLibrary),
+	FOREIGN KEY (FkIdBook) REFERENCES Book(IdBook)
+);
+
+CREATE TABLE Review (
+	IdReview int IDENTITY(1,1) PRIMARY KEY,
+	Comment varchar(512) NOT NULL,
+	FKIdBook int NOT NULL,
+	FkIdUser int NOT NULL,
+	FOREIGN KEY (FKIdBook) REFERENCES Book(IdBook),
+	FOREIGN KEY (FkIdUser) REFERENCES [User](IdUser),
+);
+
+CREATE TABLE Category (
+	IdCategory int IDENTITY(1,1) PRIMARY KEY,
+	CategoryName varchar(255) UNIQUE NOT NULL
+);
+
+CREATE TABLE Book_Category (
+	FkIdCategory int NOT NULL,
+	FkIdBook int NOT NULL,
+	PRIMARY KEY (FkIdCategory, FkIdBook),
+	FOREIGN KEY (FkIdCategory) REFERENCES Category(IdCategory),
+	FOREIGN KEY (FkIdBook) REFERENCES Book(IdBook)
 );
