@@ -22,6 +22,5 @@ namespace LoginMVC.Tools
                 return computedHash.SequenceEqual(storedHash);
             }
         }
-
     }
 }
